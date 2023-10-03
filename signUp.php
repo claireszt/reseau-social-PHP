@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <link rel="stylesheet" href="/html:css/stylesheets/_body.css">
+    <link rel="stylesheet" href="/htmlcss/stylesheets/_body.css">
 
 </head>
+
 <body>
-    <nav><h1>NAV BAR</h1></nav> <!-- import navbar -->
+    <nav>
+        <h1>NAV BAR</h1>
+    </nav> <!-- import navbar -->
 
     <main>
-    <section id="createGroupForm">
-        <h1>NOUVEL UTILISATEUR</h1>
-        <form action="createUser.php" method="post">
+        <section id="createGroupForm">
+            <h1>NOUVEL UTILISATEUR</h1>
+            <form action="createUser.php" method="post">
                 <div>
                     <label for="pseudo">Pseudo</label>
                     <input type="text" name="pseudo" required />
@@ -32,12 +36,13 @@
                     <input type="password" name="mdp">
                 </div>
 
-                <input type="submit">         
-            
-        </form>
-    </section>
+                <input type="submit">
+
+            </form>
+        </section>
     </main>
 
-    
+
 </body>
+
 </html>
