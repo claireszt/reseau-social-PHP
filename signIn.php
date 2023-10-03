@@ -23,7 +23,7 @@
             ;
             $searchUser = $mysqli->query($querySearchUser);
             $result = $searchUser->fetch_assoc();
-            if(password_verify("'".$mdp."'", "'".$result['mdp']."'")){
+            if($mdp == $result['mdp']){
                 session_start();
                 $_SESSION['pseudo'] = $_POST["pseudo"];
                 $_SESSION['info'] = "test";
