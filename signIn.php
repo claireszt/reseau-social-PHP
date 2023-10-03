@@ -15,11 +15,15 @@
         else{
             $pseudo = $_POST["pseudo"];
             $mdp = $_POST["mdp"];
-            $mdpHash = password_hash($mdp, PASSWORD_DEFAULT)
-            $querySearchUser = "SELECT * FROM Users WHERE pseudo = "`"$pseudo"`"";
+            $mdpHash = password_hash($mdp, PASSWORD_DEFAULT);
+            $querySearchUser = "SELECT * "
+            . "FROM users "
+            . "WHERE "
+            . "pseudo LIKE '" . $pseudo . "'"
+            ;
             $searchUser = $mysqli->query($querySearchUser);
             $result = $searchUser->fetch_assoc();
-            if(password_verify($mdp, $result['mdp'])){
+            if(password_verify("'".$mdp."'", "'".$result['mdp']."'")){
                 session_start();
                 $_SESSION['pseudo'] = $_POST["pseudo"];
                 $_SESSION['info'] = "test";
