@@ -1,0 +1,15 @@
+@import url(navbar.css);
+@import url(index.css);
+@import url(createGroup.css);
+
+html {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 90vh;
+    width: 100%;
+}
