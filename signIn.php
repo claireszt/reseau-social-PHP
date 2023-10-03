@@ -22,7 +22,9 @@
             . "pseudo LIKE '" . $pseudo . "'"
             ;
             $searchUser = $mysqli->query($querySearchUser);
+            //rajouter check et si la query ne sort pas de ligne renvoyé "le compte spécifié est introuvable
             $result = $searchUser->fetch_assoc();
+            if( $result != null){
             if($mdp == $result['mdp']){
                 session_start();
                 $_SESSION['pseudo'] = $_POST["pseudo"];
@@ -34,6 +36,9 @@
               else{
                  $errorMessage = 'Mauvais password !';
                 }
+            }else{
+                $errorMessage = 'Le compte spécifié est introuvable';
+            }
         }
 		    
         }
