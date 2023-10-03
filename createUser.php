@@ -11,19 +11,12 @@
 </head>
 
 <body>
-    <nav>
-        <h1>NAV BAR</h1>
-    </nav> <!-- import navbar -->
+    <?php include("htmlcss/navbar.php")?>
 
     <main>
         <section id="createGroupForm">
-            <h1>NOUVEL UTILISATEUR</h1>
             <?php
-            echo "<pre>" . print_r($_POST, 1) . "</pre>";
-            /**
-             * Etape 1: Ouvrir une connexion avec la base de donnée.
-             */
-            // on va en avoir besoin pour la suite
+
             $mysqli = new mysqli("localhost", "root", "root", "voisinous");
             //verification
             if ($mysqli->connect_errno) {
@@ -44,27 +37,37 @@
                     . "'" . $mail . "',"
                     . "'" . $mdphash . "',"
                     . "'" . $localisation . "', CURRENT_TIMESTAMP, NULL);";
-                // "INSERT INTO users (id, email, password, alias) "
-                //                     . "VALUES (NULL, "
-                //                     . "'" . $new_email . "', "
-                //                     . "'" . $new_passwd . "', "
-                //                     . "'" . $new_alias . "'"
-                //                     . ");";
+
             
                 $createUser = $mysqli->query($queryCreateUser);
 
-                $queryAfficherAllUsers = "SELECT * FROM Users";
-                $lesInformations = $mysqli->query($queryAfficherAllUsers);
-                $result = $lesInformations->fetch_assoc();
+
+                if ($mysqli->error) {
+                    echo "  <div class='error'>
+                                <p>Ce pseudo ou cette adresse email existe déjà.</p>
+                                <a href='signUp.php'><button id='retry'>Réessayez</button></a>
+                            </div>";
+                } else {
+                    echo "<h2>Inscription réussie !</h2>" . 
+                    "Bienvenue " . $pseudo . " !" . 
+                    "<br /> " . "
+                    <button>Se connecter</button>";
+                };
+
+
+                // Fetch the result as an associative array
+                // $rows = array();
+            
+                // while ($row = $createUser->fetch_assoc()) {
+                //     $rows[] = $row;
+                //     echo $row;
+                // }
             }
             ?>
 
             <!-- //pour verifier mdp =>password_verify ( string $password , string $hash ) : bool -->
 
-            <h2>Inscription réussie !</h2>
-            <?php echo "Bienvenue " . $pseudo . " !" ?>
-            <br />
-            <button>Se connecter</button>
+
 
         </section>
     </main>

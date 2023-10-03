@@ -11,32 +11,30 @@
 </head>
 
 <body>
-    <nav>
-        <h1>NAV BAR</h1>
-    </nav> <!-- import navbar -->
+    <?php include("htmlcss/navbar.php")?>
 
     <main>
-        <section id="createGroupForm">
+        <section id="createUserForm">
             <h1>NOUVEL UTILISATEUR</h1>
             <form action="createUser.php" method="post">
                 <div>
                     <label for="pseudo">Pseudo</label>
-                    <input type="text" name="pseudo" required />
+                    <input type="text" name="pseudo" placeholder="indiquez votre pseudo" required />
                 </div>
                 <div>
                     <label for="mail">Email</label>
-                    <input type="email" name="mail" required />
+                    <input type="email" name="mail" placeholder="indiquez votre adresse email" required />
                 </div>
                 <div>
                     <label for="localisation">Localisation</label>
-                    <input type="number" name="localisation" maxlength="5" required />
+                    <input type="number" name="localisation" maxlength="5" placeholder="indiquez votre code postal" required />
                 </div>
                 <div>
                     <label for="mdp">Password</label>
-                    <input type="password" name="mdp">
+                    <input type="password" name="mdp" placeholder="indiquez votre mot de passe">
                 </div>
 
-                <input type="submit">
+                <input type="submit" value="VALIDER" />
 
             </form>
         </section>
