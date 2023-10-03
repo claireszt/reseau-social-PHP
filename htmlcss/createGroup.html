@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="stylesheets/_body.css">
+
+</head>
+<body>
+    <nav><h1>NAV BAR</h1></nav> <!-- import navbar -->
+
+    <main>
+    <section id="createGroupForm">
+        <h1>NOUVEAU GROUPE</h1>
+        <form>
+                <div>
+                    <label for="nom">Nom*</label>
+                    <input type="text" name="nom" required />
+                </div>
+                <div>
+                    <label for="desc">Description</label>
+                    <textarea name="desc" rows="5" cols="33"> </textarea>
+                </div>
+                <div>
+                    <label for="local">Localisation</label>
+                    <input type="number" name="local" maxlength="5" required />
+                </div>
+                <div>
+                    <label for="tags">Tags</label>
+                    <input type="text" name="tags">
+                </div>
+                <div>
+                    <label for="private">Privé</label>
+                    <input type="checkbox" name="private">
+                </div>
+                <div>
+                    <label for="img">Image</label>
+                    <input type="file" name="img">
+                </div>
+                <input type="submit">         
+            
+        </form>
+    </section>
+    </main>
+
+    
+</body>
+</html>
