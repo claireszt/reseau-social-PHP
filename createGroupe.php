@@ -44,8 +44,8 @@
 
             $createGroupe = $mysqli->query($querycreateGroupe);
 
-            $queryAfficherAllUsers = "SELECT * FROM Users";
-                $lesInformations = $mysqli->query($queryAfficherAllUsers);
+            $queryAfficherAllGroups = "SELECT * FROM Groupes";
+                $lesInformations = $mysqli->query($queryAfficherAllGroups);
                 $result = $lesInformations->fetch_assoc();
         }
         ?>
