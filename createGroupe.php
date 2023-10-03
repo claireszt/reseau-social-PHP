@@ -51,6 +51,7 @@
         ?>
 
         <h2>Groupe créé !</h2>
+        <button>Voir le groupe</button>
 
     </section>
     </main>
