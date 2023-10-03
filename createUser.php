@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +9,11 @@
     <link rel="stylesheet" href="/htmlcss/stylesheets/_body.css">
 
 </head>
+
 <body>
-    <nav><h1>NAV BAR</h1></nav> <!-- import navbar -->
+    <nav>
+        <h1>NAV BAR</h1>
+    </nav> <!-- import navbar -->
 
     <main>
     <section id="createGroupForm">
@@ -54,20 +58,23 @@
                 echo $mysqli->error;
             }
 
-            $queryAfficherAllUsers = "SELECT * FROM Users";
+                $queryAfficherAllUsers = "SELECT * FROM Users";
                 $lesInformations = $mysqli->query($queryAfficherAllUsers);
                 $result = $lesInformations->fetch_assoc();
-        }
-        ?>
+            }
+            ?>
 
-        <!-- //pour verifier mdp =>password_verify ( string $password , string $hash ) : bool -->
+            <!-- //pour verifier mdp =>password_verify ( string $password , string $hash ) : bool -->
 
-        <h2>Inscription réussie !</h2>
-        <button>Se connecter</button>
+            <h2>Inscription réussie !</h2>
+            <?php echo "Bienvenue " . $pseudo . " !" ?>
+            <br />
+            <button>Se connecter</button>
 
-    </section>
+        </section>
     </main>
 
-    
+
 </body>
+
 </html>
