@@ -10,35 +10,35 @@
     <?php include ("./header.php"); ?>
 
     <?php
-    echo "<pre>" . print_r($_POST, 1) . "</pre>";
     // Connection à la base de données
-
-             $mysqli = new mysqli("localhost", "root", "root", "voisinous");
-            //verification
-            if ($mysqli->connect_errno)
-            {
-             echo("Échec de la connexion : " . $mysqli->connect_error);
-            exit();
-            } else {
-                if(isset($_POST['envoyer']))
+    $displayAllMessages = "";
+    $mysqli = new mysqli("localhost", "root", "root", "voisinous");
+    //verification
+    if ($mysqli->connect_errno)
+    {
+        echo("Échec de la connexion : " . $mysqli->connect_error);
+        exit();
+    } else {
+        if(isset($_POST['envoyer']))
+        echo "<pre>" . print_r($_POST["content"]) . "</pre>";
                 {
-                    $id= "";
                     $content= $_POST["content"];
-                    $userid = $_POST["userid"];
+                    $userid = '1'; // $userid = $_POST["userid"];
                     $date = "CURRENT_TIMESTAMP";
-                    $groupeid = $_POST["groupeid"];
-                    $principale = $_POST["principale"];
+                    $groupeid = '2'; // $groupeid = $_POST["groupeid"];
+                    $principale = '1'; // $principale = $_POST["principale"]; 
 
 
-                    $queryInsertMessage = "INSERT INTO Posts (id, content, userid, date, groupeid, principale) "
-                    . "VALUES (" . NULL 
-                    . "'" . $content . "',"
-                    . "'" . NULL . "',"
-                    . CURRENT_TIMESTAMP . NULL
+                    $queryInsertMessage = "INSERT INTO Posts (content, userid, date, groupeid, principale) "
+                    . "VALUES ('" 
+                    . $content . "',"
+                    . "'" . $userid . "',"
+                    . "CURRENT_TIMESTAMP" . ", '"
+                    . $groupeid . "',"
                     . "'" . $principale . "');";
 
                     $createmessage = $mysqli->query($queryInsertMessage);
-                    if ($mysqli->query($queryInsertMessage) === TRUE) {
+                    if ($createmessage === TRUE) {
                         echo "Données insérées avec succès.";
                     } else {
                         echo "Erreur lors de l'insertion : " . $mysqli->error;
@@ -53,7 +53,7 @@
 
                 <form action="messagefeature.php" method="POST">
                     <label for="message">Votre message: </label>
-                    <input type=text id="message" placeholder="type something..." required></input>
+                    <input type=text name="content" id="message" placeholder="type something..." required></input>
                     <button type=submit value="envoyer" name="envoyer">Envoyer</button>
                     <p style="color:white;"><?php echo $displayAllMessages ?></p>
                 </form>
