@@ -16,6 +16,7 @@
         <h1>NOUVEL UTILISATEUR</h1>
         <?php
         echo "<pre>" . print_r($_POST, 1) . "</pre>";
+        echo "<pre>" . print_r($_FILES, 1) . "</pre>";
         /**
          * Etape 1: Ouvrir une connexion avec la base de donnée.
          */
@@ -31,25 +32,27 @@
             $pseudo = $_POST["pseudo"];
             $mail = $_POST["mail"];
             $mdp = $_POST["mdp"];
-		    // peut être stocké dans la base de données
 		    $mdphash = password_hash($mdp, PASSWORD_DEFAULT);
             $localisation = $_POST["localisation"];
             $date = "CURRENT_TIMESTAMP";
+            $photo = $_FILES['img']['name'];
 
             $queryCreateUser = "INSERT INTO Users (pseudo, mail, mdp, localisation, date, photo) "
                  . "VALUES (" 
                  . "'" . $pseudo . "'," 
                  . "'" . $mail . "'," 
                  . "'" . $mdphash . "'," 
-                 . "'" . $localisation . "', CURRENT_TIMESTAMP, NULL);";
-            // "INSERT INTO users (id, email, password, alias) "
-            //                     . "VALUES (NULL, "
-            //                     . "'" . $new_email . "', "
-            //                     . "'" . $new_passwd . "', "
-            //                     . "'" . $new_alias . "'"
-            //                     . ");";
+                 . "'" . $localisation 
+                 . "', CURRENT_TIMESTAMP ,"
+                 . "'" . $photo . "');";
 
             $createUser = $mysqli->query($queryCreateUser);
+
+            move_uploaded_file($_FILES['img']['tmp_name'], 'uploads/users/' . basename($_FILES['img']['name']));
+
+            if($mysqli->error){
+                echo $mysqli->error;
+            }
 
             $queryAfficherAllUsers = "SELECT * FROM Users";
                 $lesInformations = $mysqli->query($queryAfficherAllUsers);

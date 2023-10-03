@@ -14,7 +14,7 @@
     <main>
     <section id="createGroupForm">
         <h1>NOUVEL UTILISATEUR</h1>
-        <form action="createUser.php" method="post">
+        <form action="createUser.php" method="post" enctype="multipart/form-data">
                 <div>
                     <label for="pseudo">Pseudo</label>
                     <input type="text" name="pseudo" required />
@@ -31,7 +31,10 @@
                     <label for="mdp">Password</label>
                     <input type="password" name="mdp">
                 </div>
-
+                <div>
+                    <label for="img">Image</label>
+                    <input type="file" name="img">
+                </div>
                 <input type="submit">         
             
         </form>
