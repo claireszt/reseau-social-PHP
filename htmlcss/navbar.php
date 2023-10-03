@@ -15,7 +15,7 @@
             <button>ACCUEUIL</button>
             <button>RECHERCHE</button>
         </div>
-        <div class="nav-right"><img src="https://cdn-icons-png.flaticon.com/256/3033/3033143.png"></div>
+        <div class="nav-right"><button>MON PROFIL</button></div>
     </nav>
     
 </body>
