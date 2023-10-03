@@ -1,13 +1,6 @@
-<!doctype html>
-<html lang="fr">
-    <head>
-        <meta charset="utf-8">
-        <title>ReSoC - Flux</title>         
-        <meta name="author" content="Julien Falconnet">
-        <link rel="stylesheet" href="style.css"/>
-    </head>
-    <body>
+
     <?php include ("./header.php"); ?>
+
 
     <?php
              $mysqli = new mysqli("localhost", "root", "root", "socialnetwork");
@@ -19,7 +12,7 @@
             }
     ?>
 
-    <div>
+
 
 
     <?php
@@ -31,14 +24,15 @@
                 {
                     echo("Échec de la requete : " . $mysqli->error);
                     exit();
+                } else {
+                    $message= $_POST["message"];
+
+                    $queryCreateMessage = "INSERT INTO `Posts` (`id`, `content`, `userid`, `date`, `groupeid`, `principale`) 
+                    VALUES (NULL, 'Hello World ! ', '1', '2023-10-03 11:23:36', '4', '1');"
                 }
 
 
 
 
-
-        <input type="text" placeholder="type something..." ></input>
-        <p><?<php echo $_POST ?></p>
-    </div>
-    </body>
-</html>
+?>
+  

@@ -11,14 +11,7 @@
 
         <div id="wrapper">
             <?php
-            /**
-             * Cette page est TRES similaire à wall.php. 
-             * Vous avez sensiblement à y faire la meme chose.
-             * Il y a un seul point qui change c'est la requete sql.
-             */
-            /**
-             * Etape 1: Le mur concerne un utilisateur en particulier
-             */
+            
             $userId = intval($_GET['user_id']);
             ?>
             <?php
@@ -50,10 +43,26 @@
                 </section>
             </aside>
             <main>
-                <?php
+                
                 /**
                  * Etape 3: récupérer tous les messages des abonnements
                  */
+                <?php
+            
+                $messageSql = "SELECT * FROM `Posts`";
+                $lesInformations = $mysqli->query($messageSql);
+                // Vérification
+                if ( ! $lesInformations)
+                {
+                    echo("Échec de la requete : " . $mysqli->error);
+                    exit();
+                } else {
+
+                    $queryCreateMessage = "INSERT INTO Posts (id, content, userid, date, groupeid, principale) 
+                    VALUES (NULL, 'Hello World ! ', '1', '2023-10-03 11:23:36', '4', '1');"
+                }
+?>
+<?php
                 $laQuestionEnSql = "
                     SELECT posts.content,
                     posts.created,
@@ -76,10 +85,7 @@
                     echo("Échec de la requete : " . $mysqli->error);
                 }
 
-                /**
-                 * Etape 4: @todo Parcourir les messsages et remplir correctement le HTML avec les bonnes valeurs php
-                 * A vous de retrouver comment faire la boucle while de parcours...
-                 */
+            
                 ?>                
                 <article>
                     <h3>
