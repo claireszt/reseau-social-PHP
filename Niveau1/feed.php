@@ -49,18 +49,14 @@
                  */
                 <?php
             
-                $messageSql = "SELECT * FROM `Posts`";
-                $lesInformations = $mysqli->query($messageSql);
+                $laQuestionEnSql = "SELECT * FROM `Posts`";
+                $lesInformations = $mysqli->query($laQuestionEnSql);
                 // Vérification
                 if ( ! $lesInformations)
                 {
                     echo("Échec de la requete : " . $mysqli->error);
                     exit();
-                } else {
-
-                    $queryCreateMessage = "INSERT INTO Posts (id, content, userid, date, groupeid, principale) 
-                    VALUES (NULL, 'Hello World ! ', '1', '2023-10-03 11:23:36', '4', '1');"
-                }
+                } 
 ?>
 <?php
                 $laQuestionEnSql = "
