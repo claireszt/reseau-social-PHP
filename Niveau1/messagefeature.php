@@ -25,7 +25,7 @@
                     $content= $_POST["content"];
                     $userid = '1'; // $userid = $_POST["userid"];
                     $date = "CURRENT_TIMESTAMP";
-                    $groupeid = '2'; // $groupeid = $_POST["groupeid"];
+                    $groupeid = '4'; // $groupeid = $_POST["groupeid"];
                     $principale = '1'; // $principale = $_POST["principale"]; 
 
 
