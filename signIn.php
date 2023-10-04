@@ -1,6 +1,6 @@
 <?php
-
-session_unset();
+session_start();
+session_destroy();
 
   if(!empty($_POST)) 
   {
@@ -26,13 +26,12 @@ session_unset();
             $searchUser = $mysqli->query($querySearchUser);
             $result = $searchUser->fetch_assoc();
             if($result != null){
-            if($mdp == $result['mdp']){
+            if(password_verify ($mdp ,$result['mdp'])){
                 session_start();
                 $_SESSION['pseudo'] = $_POST["pseudo"];
                 $_SESSION['id'] = $result['id'];
-                echo "<pre>" . print_r($_SESSION, 1) . "</pre>";
                 // On redirige vers le fichier admin.php
-                header('Location: http://www.localhost/niveau1/admin.php');
+                header('Location: http://localhost/niveau1/admin.php');
                 exit();
               }
               else{
