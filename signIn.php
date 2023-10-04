@@ -1,7 +1,5 @@
 <?php
-
-session_unset();
-
+ 
   if(!empty($_POST)) 
   {
     // Les identifiants sont transmis ?
@@ -24,13 +22,13 @@ session_unset();
             . "pseudo LIKE '" . $pseudo . "'"
             ;
             $searchUser = $mysqli->query($querySearchUser);
+            //rajouter check et si la query ne sort pas de ligne renvoyé "le compte spécifié est introuvable
             $result = $searchUser->fetch_assoc();
-            if($result != null){
-            if($mdp == $result['mdp']){
+            if( $result != null){
+            if($mdpHash == $result['mdp']){
                 session_start();
                 $_SESSION['pseudo'] = $_POST["pseudo"];
-                $_SESSION['id'] = $result['id'];
-                echo "<pre>" . print_r($_SESSION, 1) . "</pre>";
+                $_SESSION['info'] = "test";
                 // On redirige vers le fichier admin.php
                 header('Location: http://www.localhost/niveau1/admin.php');
                 exit();
