@@ -16,12 +16,7 @@
         <h1>NOUVEL UTILISATEUR</h1>
         <?php
         echo "<pre>" . print_r($_POST, 1) . "</pre>";
-        /**
-         * Etape 1: Ouvrir une connexion avec la base de donnée.
-         */
-        // on va en avoir besoin pour la suite
         $mysqli = new mysqli("localhost", "root", "root", "voisinous");
-        //verification
         if ($mysqli->connect_errno)
         {
             echo("Échec de la connexion : " . $mysqli->connect_error);
@@ -32,7 +27,7 @@
             $description = $_POST["description"];
             $localisation = $_POST["localisation"];
             $private = $_POST["private"];
-            $adminid = $_POST["adminid"]
+            $adminid = $_POST["adminid"];
             $date = "CURRENT_TIMESTAMP";
 
             $queryCreateGroup = "INSERT INTO Groupes (name, localisation, private, adminid, date) "
@@ -40,7 +35,7 @@
                  . "'" . $name . "'," 
                  . "'" . $localisation . "'," 
                  . "'" . $private . "'," 
-                 . "'" . $adminid . "', CURRENT_TIMESTAMP);
+                 . "'" . $adminid . "', CURRENT_TIMESTAMP);";
 
             $createGroupe = $mysqli->query($querycreateGroupe);
 
