@@ -27,7 +27,7 @@
             $description = $_POST["description"];
             $localisation = $_POST["localisation"];
             $private = $_POST["private"];
-            $adminid = $_POST["adminid"]
+            $adminid = $_POST["adminid"];
             $date = "CURRENT_TIMESTAMP";
 
             $queryCreateGroup = "INSERT INTO Groupes (name, localisation, private, adminid, date) "
