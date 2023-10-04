@@ -18,24 +18,19 @@
         <h1>NOUVEL UTILISATEUR</h1>
         <form action="createUser.php" method="post" enctype="multipart/form-data">
                 <div>
-                    <label for="pseudo">Pseudo</label>
-                    <input type="text" name="pseudo" placeholder="indiquez votre pseudo" required />
+                    <input type="text" name="pseudo" placeholder="votre pseudo" required />
                 </div>
                 <div>
-                    <label for="mail">Email</label>
-                    <input type="email" name="mail" placeholder="indiquez votre adresse email" required />
+                    <input type="email" name="mail" placeholder="votre adresse email" required />
                 </div>
                 <div>
-                    <label for="localisation">Localisation</label>
-                    <input type="number" name="localisation" maxlength="5" placeholder="indiquez votre code postal" required />
+                    <input type="number" name="localisation" maxlength="5" placeholder="votre code postal" required />
                 </div>
                 <div>
-                    <label for="mdp">Password</label>
-                    <input type="password" name="mdp" placeholder="indiquez votre mot de passe">
+                    <input type="password" name="mdp" placeholder="votre mot de passe">
                 </div>
                 <div>
-                    <label for="img">Image</label>
-                    <input type="file" name="img">
+                    <input type="file" name="img" placeholder="votre photo de profil">
                 </div>
                 <input type="submit" value="VALIDER" />         
             

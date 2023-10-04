@@ -1,0 +1,24 @@
+#feed {
+    background-color: white;
+    width: 69%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#myGroups {
+    background-color: white;
+    width: 29%;
+}
+
+h1 {
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.message {
+    border: 1px solid black;
+    width: 90%;
+    height: 150px;
+    border-radius: 10px;
+}
