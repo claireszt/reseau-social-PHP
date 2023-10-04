@@ -17,8 +17,8 @@ if(empty($_SESSION['pseudo']))
   <body>
  <?php
     // Ici on est bien loggué, on affiche un message
-    echo 'Bienvenue ', $_SESSION['pseudo']; 
-    echo 'test' , $_SESSION['info'];
+    echo 'Bienve ', $_SESSION['pseudo']; 
+    echo 'test ', $_SESSION['id'];
   ?>
   </body>
 </html>
