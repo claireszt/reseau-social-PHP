@@ -19,6 +19,7 @@ else {
 $joinGroupe = $mysqli->query($queryJoinGroupe);
     if($joinGroupe!='')
     {
+        print_r($joinGroupe);
         echo 'Vous avez rejoint le groupe';
     }
 }
