@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <link rel="stylesheet" href="/htmlcss/stylesheets/_body.css">
+    <link rel="stylesheet" href="./htmlcss/stylesheets/_body.css">
 
 </head>
 
@@ -21,7 +21,7 @@
                     <input type="text" name="name" placeholder="nom du groupe" required />
                 </div>
                 <div>
-                    <textarea type="text" name="description" placeholder="description" required></textarea>
+                    <textarea type="text" name="description" placeholder="description" rows="1"></textarea>
                 </div>
                 <div>
                     <input type="number" name="localisation" maxlength="5" placeholder="code postal" required />

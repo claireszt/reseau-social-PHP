@@ -51,11 +51,16 @@ session_destroy();
 <html lang="fr">
   <head>
     <title>Formulaire d'authentification</title>
+    <link rel="stylesheet" href="./htmlcss/stylesheets/_body.css">
+
   </head>
   <body>
+    <?php include("htmlcss/navbar.php")?>
+
     <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-      <fieldset>
-        <legend>Identifiez-vous</legend>
+      <main>
+        <section id="signIn">
+        <h1>Identifiez-vous</h1>
         <?php
           // Rencontre-t-on une erreur ?
           if(!empty($errorMessage)) 
@@ -63,16 +68,17 @@ session_destroy();
             echo '<p>', htmlspecialchars($errorMessage) ,'</p>';
           }
         ?>
-       <p>
-          <label for="pseudo">Pseudo :</label> 
-          <input type="text" name="pseudo" id="pseudo" value="" />
-        </p>
-        <p>
-          <label for="mdp">Password :</label> 
-          <input type="password" name="mdp" id="mdp" value="" /> 
-          <input type="submit" name="submit" value="Se logguer" />
-        </p>
-      </fieldset>
+       <div>
+          <input type="text" name="pseudo" id="pseudo" value="" placeholder="pseudo" required/>
+        </div>
+        <div>
+          <input type="password" name="mdp" id="mdp" value="" placeholder="mot de passe" required/> 
+        </div>
+        <div>
+          <input type="submit" name="submit" value="Se connecter" />
+        </div>
+        </section>
+        </main>
     </form>
   </body>
 </html>

@@ -3,6 +3,9 @@
 @import url(createUser.css);
 @import url(accueil.css);
 @import url(newGroup.css);
+@import url(signIn.css);
+@import url(groupPage.css);
+@import url(message.css);
 
 html {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

@@ -9,6 +9,9 @@
 #myGroups {
     background-color: white;
     width: 29%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 h1 {
@@ -16,9 +19,31 @@ h1 {
     text-transform: uppercase;
 }
 
-.message {
-    border: 1px solid black;
-    width: 90%;
-    height: 150px;
-    border-radius: 10px;
+#myGroups ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
+
+#myGroups li {
+    margin: 0;
+    font-size: 13px;
+    text-align: center;
+    margin-bottom: 3px;
+}
+
+#myGroups a {
+    text-decoration: none;
+}
+
+#myGroups a:visited {
+    color: black;
+}
+
+#myGroups a:hover {
+    color: #fd676a;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+}
+
