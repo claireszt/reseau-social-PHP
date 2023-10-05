@@ -1,0 +1,40 @@
+#afterRegister {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.error {
+    text-align: center;
+    color: #fd676a;
+}
+
+#retry, #login {
+    border: none;
+    padding:10px;
+    border-radius: 10px;
+    width: 200px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+#retry:hover, #login:hover {
+    border: none;
+    background-color: #fd676a;
+    color: white;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.registered {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.registered h2, .registered h4 {
+    margin:0;
+    text-align: center;
+}
