@@ -2,6 +2,7 @@
 @import url(signUp.css);
 @import url(createUser.css);
 @import url(accueil.css);
+@import url(newGroup.css);
 
 html {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

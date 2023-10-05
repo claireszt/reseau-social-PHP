@@ -15,19 +15,20 @@
 
     <main>
     <section id="createForm">
-        <h1>NOUVEL UTILISATEUR</h1>
-        <form action="createUser.php" method="post" enctype="multipart/form-data">
+        <h1>NOUVEAU GROUPE</h1>
+        <form action="createGroupe.php" method="post" enctype="multipart/form-data">
                 <div>
-                    <input type="text" name="pseudo" placeholder="votre pseudo" required />
+                    <input type="text" name="name" placeholder="nom du groupe" required />
                 </div>
                 <div>
-                    <input type="email" name="mail" placeholder="votre adresse email" required />
+                    <textarea type="text" name="description" placeholder="description" required></textarea>
                 </div>
                 <div>
-                    <input type="number" name="localisation" maxlength="5" placeholder="votre code postal" required />
+                    <input type="number" name="localisation" maxlength="5" placeholder="code postal" required />
                 </div>
-                <div>
-                    <input type="password" name="mdp" placeholder="votre mot de passe">
+                <div class="checkbox">
+                    <label for="checkbox">Privé ?</label>
+                    <input type="checkbox" name="private" id="checkbox">
                 </div>
                 <div>
                     <input type="file" name="img" placeholder="votre photo de profil">

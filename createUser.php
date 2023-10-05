@@ -52,7 +52,7 @@
                     echo "<div class='registered'><h2>Inscription réussie !</h2>" .
                         "<h4>Bienvenue " . $pseudo . "</h4>" .
                         "<br /> " . "
-                        <button id='login'>Se connecter</button></div>";
+                        <a href='/signIn.php'><button id='login'>Se connecter</button></a></div>";
                 }
                 ;
             }
