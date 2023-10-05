@@ -4,36 +4,19 @@ $userid = '1';
 // $userid = $_SESSION['id'];
 
 $mysqli = new mysqli("localhost", "root", "root", "voisinous");
-if ($mysqli->connect_errno)
-{
-    echo("Échec de la connexion : " . $mysqli->connect_error);
+if ($mysqli->connect_errno) {
+    echo ("Échec de la connexion : " . $mysqli->connect_error);
     exit();
-}
-else {
+} else {
     $queryGetListGroupe = "SELECT groupid 
     FROM groupemembers
     WHERE userid = " . $userid . ";";
 
-$listGroupe = $mysqli->query($queryGetListGroupe);
-$rows = array();
-    if($listGroupe!='')
-    {
-        while ($row = $listGroupe->fetch_assoc()) {
-            $rows[] = $row;
-        }
-        print_r($rows);
+    $listGroupe = $mysqli->query($queryGetListGroupe);
+    foreach ($listGroupe as $groupe) {
+        echo ("<p> ID du groupe : " . $groupe['groupid'] . "<p>");
     }
+
 }
 
 ?>
-
-                
-
-$queryGetListGroupe = "SELECT userid
-    FROM groupemembers
-    WHERE EXISTS (
-        SELECT groupeid
-        FROM groupemembers
-        WHERE userid = '". $userid . "' AND groupeid = '" . password . "'
-        LIMIT 1
-    );";
