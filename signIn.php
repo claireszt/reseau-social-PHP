@@ -31,8 +31,9 @@ session_destroy();
                 session_start();
                 $_SESSION['pseudo'] = $_POST["pseudo"];
                 $_SESSION['id'] = $result['id'];
+                $_SESSION['localisation'] = $result['localisation'];
                 // On redirige vers le fichier admin.php
-                header('Location: http://localhost/niveau1/admin.php');
+                header('Location: ./niveau1/admin.php');
                 exit();
               }
               else{
