@@ -1,29 +1,9 @@
-<!DOCTYPE html>
-<html lang="fr">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carte</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.js"></script>
-    <style>
-        html,
-        body {
-            margin: 0;
-            height: 100%;
-        }
-
-        #map {
-            width: 50%;
-            height: 50%;
-        }
-    </style>
-</head>
-
-<body>
-
-    <div id="map"></div>
+<div class="containmap">
+    <div id="map">
+        <input name="lat" id="latitude"></input>
+        <input name="lon" id="longitude"></input>
+    </div>
+</div>
 
     <script>
         let localisation = new Object()
@@ -58,8 +38,13 @@
             /* Centre la carte sur la latitude et la longitude de la localisation de l'utilisateur */
             map.panTo(new L.LatLng(position.coords.latitude, position.coords.longitude));
             localisation.lat = position.coords.latitude
+            lat = document.getElementById("latitude")
+            lat.value = localisation.lat
             localisation.lon = position.coords.longitude
-            theMarker = L.marker([localisation.lat, localisation.lon]).addTo(map);
+            lon = document.getElementById("longitude")
+            lon.value = localisation.lon
+            theMarker = L.marker([localisation.lat, localisation.lon]).addTo(map)
+
         }
         function handleLocationError(msg) {
             alert("Erreur lors de la géolocalisation");
@@ -81,7 +66,3 @@
         });
 
     </script>
-
-</body>
-
-</html>

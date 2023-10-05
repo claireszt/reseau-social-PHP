@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <link rel="stylesheet" href="/htmlcss/stylesheets/_body.css">
+    <link rel="stylesheet" href="./htmlcss/stylesheets/_body.css">
 
 </head>
 <body>
@@ -28,9 +28,11 @@
             $private = '0'; // $private = $_POST["private"];
             $adminid = '1'; // $adminid = $_POST["adminid"];
             $date = "CURRENT_TIMESTAMP";
+            $latitude = $_POST['lat'];
+            $longitude = $_POST['lon'];
             $photo = $_FILES['img']['name'];
 
-            $queryCreateGroup = "INSERT INTO Groupes (name, description, localisation, photo, private, date, adminid) "
+            $queryCreateGroup = "INSERT INTO Groupes (`name`, description, localisation, photo, private, date, latitude, longitude, adminid) "
                  . "VALUES (" 
                  . "'" . $name . "'," 
                  . "'" . $description . "',"
@@ -38,6 +40,8 @@
                  . "'" . $photo . "',"
                  . "'" . $private . "'," 
                  . "CURRENT_TIMESTAMP ,"
+                 . "'" . $latitude . "',"
+                 . "'" . $longitude . "',"
                  . "'" . $adminid . "');";
 
             $createGroupe = $mysqli->query($queryCreateGroup);
