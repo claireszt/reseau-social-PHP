@@ -32,7 +32,7 @@
             $longitude = $_POST['lon'];
             $photo = $_FILES['img']['name'];
 
-            $queryCreateGroup = "INSERT INTO Groupes (`name`, description, localisation, photo, private, date, latitude, longitude, adminid) "
+            $queryCreateGroup = "INSERT INTO Groupes (name, description, localisation, photo, private, date, latitude, longitude, adminid) "
                  . "VALUES (" 
                  . "'" . $name . "'," 
                  . "'" . $description . "',"
