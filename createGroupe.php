@@ -9,11 +9,11 @@
 
 </head>
 <body>
-    <nav><h1>NAV BAR</h1></nav> <!-- import navbar -->
+    <?php include("htmlcss/navbar.php")?>
 
     <main>
     <section id="createGroupForm">
-        <h1>NOUVEL UTILISATEUR</h1>
+        <h1>NOUVEAU GROUPE</h1>
         <?php
         echo "<pre>" . print_r($_POST, 1) . "</pre>";
         $mysqli = new mysqli("localhost", "root", "root", "voisinous");
@@ -21,32 +21,39 @@
         {
             echo("Échec de la connexion : " . $mysqli->connect_error);
             exit();
-        }
-        else{
+        } else {
             $name = $_POST["name"];
             $description = $_POST["description"];
             $localisation = $_POST["localisation"];
-            $private = $_POST["private"];
-            $adminid = $_POST["adminid"];
+            $private = '0'; // $private = $_POST["private"];
+            $adminid = '1'; // $adminid = $_POST["adminid"];
             $date = "CURRENT_TIMESTAMP";
+            $photo = $_FILES['img']['name'];
 
-            $queryCreateGroup = "INSERT INTO Groupes (name, localisation, private, adminid, date) "
+            $queryCreateGroup = "INSERT INTO Groupes (name, description, localisation, photo, private, date, adminid) "
                  . "VALUES (" 
                  . "'" . $name . "'," 
+                 . "'" . $description . "',"
                  . "'" . $localisation . "'," 
+                 . "'" . $photo . "',"
                  . "'" . $private . "'," 
-                 . "'" . $adminid . "', CURRENT_TIMESTAMP);";
+                 . "CURRENT_TIMESTAMP ,"
+                 . "'" . $adminid . "');";
 
-            $createGroupe = $mysqli->query($querycreateGroupe);
+            $createGroupe = $mysqli->query($queryCreateGroup);
 
-            $queryAfficherAllGroups = "SELECT * FROM Groupes";
-                $lesInformations = $mysqli->query($queryAfficherAllGroups);
-                $result = $lesInformations->fetch_assoc();
+            move_uploaded_file($_FILES['img']['tmp_name'], 'uploads/groups/' . basename($_FILES['img']['name']));
+
+            if ($mysqli->error) {
+                print_r($mysqli->error);
+            } else {
+                echo "<h2>Groupe créé !</h2>" . "<button>Voir le groupe</button>";
+            }
+            ;
         }
         ?>
 
-        <h2>Groupe créé !</h2>
-        <button>Voir le groupe</button>
+
 
     </section>
     </main>
