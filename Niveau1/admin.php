@@ -5,7 +5,7 @@ session_start();
 if(empty($_SESSION['pseudo'])) 
 {
   // Si inexistante ou nulle, on redirige vers le formulaire de login
-  header('Location: http://www.localhost/signIn.php');
+  header('Location: http://localhost/signIn.php');
   exit();
 }
 ?>
@@ -18,7 +18,8 @@ if(empty($_SESSION['pseudo']))
  <?php
     // Ici on est bien loggué, on affiche un message
     echo 'Bienve ', $_SESSION['pseudo']; 
-    echo 'test ', $_SESSION['id'];
+    echo 'test id ', $_SESSION['id'];
+    echo 'test localisation ', $_SESSION['localisation'];
   ?>
   </body>
 </html>
