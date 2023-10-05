@@ -1,4 +1,6 @@
 
+<?php include ("./sessionprolong.php"); ?>
+
 <?php 
 
 if(!empty($_POST)){
