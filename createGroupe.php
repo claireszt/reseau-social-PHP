@@ -32,19 +32,12 @@
             $longitude = $_POST['lon'];
             $photo = $_FILES['img']['name'];
 
-            $queryCreateGroup = "INSERT INTO Groupes (name, description, localisation, photo, private, date, latitude, longitude, adminid) "
-                 . "VALUES (" 
-                 . "'" . $name . "'," 
-                 . "'" . $description . "',"
-                 . "'" . $localisation . "'," 
-                 . "'" . $photo . "',"
-                 . "'" . $private . "'," 
-                 . "CURRENT_TIMESTAMP ,"
-                 . "'" . $latitude . "',"
-                 . "'" . $longitude . "',"
-                 . "'" . $adminid . "');";
+            $queryCreateGroup = $mysqli->prepare("INSERT INTO Groupes (name, description, localisation, photo, private, latitude, longitude, adminid) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
-            $createGroupe = $mysqli->query($queryCreateGroup);
+            $queryCreateGroup->bind_param('ssissddi', $name, $description, $localisation, $photo, $private, $latitude, $longitude, $adminid);
+
+            $createGroupe = $queryCreateGroup->execute();
 
             move_uploaded_file($_FILES['img']['tmp_name'], 'uploads/groups/' . basename($_FILES['img']['name']));
 
