@@ -1,11 +1,4 @@
 <?php
-// $queryCreateGroup = $mysqli->prepare("INSERT INTO Groupes (name, description, localisation, photo, private, latitude, longitude, adminid) 
-//             VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-
-// $queryCreateGroup->bind_param('ssissddi', $name, $description, $localisation, $photo, $private, $latitude, $longitude, $adminid);
-
-// $createGroupe = $queryCreateGroup->execute();
-
 function toRad($value)
 {
     return $value * pi() / 180;
@@ -36,7 +29,7 @@ if ($mysqli->connect_errno) {
     exit();
 } else {
 
-    $queryUserGeoloc = "SELECT * FROM users WHERE id=8;"; //à modifier par l'id de user
+    $queryUserGeoloc = "SELECT * FROM users WHERE id=" . $_SESSION['id'] . ";";
     $userGeoloc = $mysqli->query($queryUserGeoloc);
     $user = $userGeoloc->fetch_array();
 
