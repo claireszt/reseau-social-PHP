@@ -42,25 +42,23 @@ if ($mysqli->connect_errno) {
 
     $queryAllGroups = "SELECT * FROM Groupes";
     $allGroups = $mysqli->query($queryAllGroups);
-    print_r($allGroups);
-    while($row = $allGroups->fetch_assoc()) {
-        print_r($row);
-        $group = $row;
-    }
-    $groups = $allGroups->fetch_assoc();
 
-    foreach ($groups as $group) {
-        // print_r($group);
+    $groups = array();
+    while($group = $allGroups->fetch_assoc()) {
         $group['distanceToUser'] = calculDistance($user['latitude'], $user['longitude'], $group['latitude'], $group['longitude']);
-        echo "<p>" . print_r($group) . "Le groupe " . $group['name'] . " est à " . $group['distanceToUser'] . " km</p>";
-
+        array_push($groups, $group);
     }
 
-    print_r($groups);
+    function compareDistances($a, $b) {
+        return $a['distanceToUser'] - $b['distanceToUser'];
+    }
+
+    usort($groups, 'compareDistances');
+
+    foreach($groups as $group) {
+        echo "<p><pre>" . print_r($group) . "</pre>Le groupe " . $group['name'] . " est à " . $group['distanceToUser'] . " km</p>";
+    }
 
 }
-
-
-
 
 ?>
