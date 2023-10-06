@@ -36,7 +36,7 @@ if ($mysqli->connect_errno) {
     exit();
 } else {
 
-    $queryUserGeoloc = "SELECT * FROM users WHERE id=8;";
+    $queryUserGeoloc = "SELECT * FROM users WHERE id=8;"; //à modifier par l'id de user
     $userGeoloc = $mysqli->query($queryUserGeoloc);
     $user = $userGeoloc->fetch_array();
 
@@ -56,7 +56,13 @@ if ($mysqli->connect_errno) {
     usort($groups, 'compareDistances');
 
     foreach($groups as $group) {
-        echo "<p><pre>" . print_r($group) . "</pre>Le groupe " . $group['name'] . " est à " . $group['distanceToUser'] . " km</p>";
+        if($group['distanceToUser']<1){
+            $group['distanceToUser'] = round(($group['distanceToUser'] * 1000), 0, PHP_ROUND_HALF_UP) . " m";
+        }
+        else{
+            $group['distanceToUser'] = round($group['distanceToUser'], 1, PHP_ROUND_HALF_UP) . " km";
+        }
+        echo "<p><pre>" . print_r($group) . "</pre>Le groupe " . $group['name'] . " est à " . $group['distanceToUser'] . "</p>";
     }
 
 }
