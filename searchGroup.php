@@ -7,9 +7,6 @@ include("./functionCalculDistance.php")     ?>
 
 if (!empty($_POST)) {
 
-    // if(!isset(($_POST['searchMethod']))){
-//         $errorMessage = 'cocher une methode de recherche !';
-//     }
     if (!empty($_POST['groupSearch']) && $_POST['searchMethod'] == "localisation") {
         $mysqli = new mysqli("localhost", "root", "root", "voisinous");
         //verification
