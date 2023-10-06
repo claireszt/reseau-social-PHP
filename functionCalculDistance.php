@@ -62,7 +62,7 @@ if ($mysqli->connect_errno) {
         else{
             $group['distanceToUser'] = round($group['distanceToUser'], 1, PHP_ROUND_HALF_UP) . " km";
         }
-        echo "<p><pre>" . print_r($group) . "</pre>Le groupe " . $group['name'] . " est à " . $group['distanceToUser'] . "</p>";
+        echo "<p>Le groupe " . $group['name'] . " est à " . $group['distanceToUser'] . "</p>";
     }
 
 }

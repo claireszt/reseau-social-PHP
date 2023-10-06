@@ -24,8 +24,7 @@
             } else {
                 $pseudo = $_POST["pseudo"];
                 $mail = $_POST["mail"];
-                $mdp = $_POST["mdp"];
-                $mdphash = password_hash($mdp, PASSWORD_DEFAULT);
+                $mdphash = password_hash($_POST["mdp"], PASSWORD_DEFAULT);
                 $localisation = $_POST["localisation"];
                 $latitude = $_POST['lat'];
                 $longitude = $_POST['lon'];
@@ -45,7 +44,7 @@
                 $queryCreateUser = $mysqli->prepare("INSERT INTO Users (pseudo, mail, mdp, localisation, latitude, longitude, photo)
                 VALUES (?, ?, ?, ?, ?, ?, ?)");
 
-                $queryCreateUser->bind_param('sssidds', $pseudo, $mail, $mdp, $localisation, $latitude, $longitude, $photo);
+                $queryCreateUser->bind_param('sssidds', $pseudo, $mail, $mdphash, $localisation, $latitude, $longitude, $photo);
 
                 $createUser = $queryCreateUser->execute();
 
@@ -61,7 +60,7 @@
                     echo "<div class='registered'><h2>Inscription réussie !</h2>" .
                         "<h4>Bienvenue " . $pseudo . "</h4>" .
                         "<br /> " . "
-                        <a href='/signIn.php'><button id='login'>Se connecter</button></a></div>";
+                        <a href='./signIn.php'><button id='login'>Se connecter</button></a></div>";
                 }
                 ;
             }
