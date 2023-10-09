@@ -1,3 +1,17 @@
+<?php
+    $currentDate = date_default_timezone_set("Europe/Paris");
+
+// On prolonge la session
+session_start();
+// On teste si la variable de session existe et contient une valeur
+if(empty($_SESSION['pseudo'])) 
+{
+  // Si inexistante ou nulle, on redirige vers le formulaire de login
+  header('Location: ./signIn.php');
+  exit();
+} 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,6 +26,7 @@
 
 <body>
     <?php include("htmlcss/navbar.php") ?>
+    <?php include("messageFonctions.php") ?>
 
     <main>
         <aside id="groupProfile">
@@ -39,7 +54,18 @@
             </article>
         </aside>
         <section id="groupFeed">
-            <button id="newmessage">Nouveau message</button>
+
+        <?php 
+            echo "<form action='".setComments($mysqli)."' method='POST'>
+                    <textarea name='content' style='color:grey;' placeholder='Ecrivez quelque chose ...'></textarea>
+                    <button id='newmessage' type=submit value='envoyer' name='commentSubmit'>Nouveau message</button>
+                    <input type='hidden' name='date' value='".date('Y-m-d H:i:s')."'>
+                </form>";
+
+            echo "<form action='".getComments($mysqli)."' method='POST'>
+                </form>";
+                ?>
+          <!--  <button id="newmessage">Nouveau message</button> -->
             <article class="message">
                 <div class="messageHeader">
                     <p>5 octobre 2023</p>
