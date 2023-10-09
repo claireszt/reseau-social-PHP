@@ -28,7 +28,7 @@
     crossorigin=""></script>
     
 
-    <title>Document</title>
+    <title>S'inscrire</title>
 
     <link rel="stylesheet" href="./htmlcss/stylesheets/_body.css">
 
@@ -39,7 +39,7 @@
 
     <main>
         <section id="createForm">
-            <h1>NOUVEL UTILISATEUR</h1>
+            <h1>INSCRIPTION</h1>
             <form action="createUser.php" method="post" enctype="multipart/form-data">
                 <div>
                     <input type="text" name="pseudo" placeholder="votre pseudo" required />

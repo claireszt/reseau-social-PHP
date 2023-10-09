@@ -7,7 +7,7 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
         exit();
     }
     else{
-        $groupId = "12"; // recupéré id du groupe grace a l'url
+        $groupId = $_GET['id']; // recupéré id du groupe grace a l'url
         $querySearchGroup = "SELECT * "
         . "FROM groupes "
         . "WHERE "
@@ -28,7 +28,6 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
                     WHERE id = " . $userId['userid'] . ";";
                     $userInfo = $mysqli->query($queryUserInfo);
                     $resultUserOfGroup = $userInfo->fetch_array();
-                    print_r($resultUserOfGroup);
                     array_push($resultUserForGroup,$resultUserOfGroup);
 
             
@@ -61,7 +60,7 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
         <aside id="groupProfile">
             <article id="groupHeader">
                 <img
-                    src="https://scontent-cdg4-3.xx.fbcdn.net/v/t39.30808-6/295177885_469072138554182_3136524954159481461_n.png?_nc_cat=106&ccb=1-7&_nc_sid=a2f6c7&_nc_ohc=lr7_QKzipPwAX-JIw3E&_nc_ht=scontent-cdg4-3.xx&cb_e2o_trans=t&oh=00_AfBCbK-3QSZDGUaUXKm9ni9KPU_qhcC1CyCl6vMPKTh9Qw&oe=6522828A" />
+                    src="./uploads/groups/<?php echo $resultGroup['photo']?>" />
                 <div>
                     <div>
                         <h3> <?php echo $resultGroup['name']?> </h3><br />

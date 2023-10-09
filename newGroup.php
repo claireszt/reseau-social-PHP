@@ -33,6 +33,7 @@
 </head>
 
 <body>
+    <?php include("./sessionprolong.php"); ?>
     <?php include("./htmlcss/navbar.php")?>
 
     <main>
@@ -58,9 +59,10 @@
                 </div>
                 <input type="submit" value="VALIDER" /> 
                 
+                <?php include("./localisation.php") ?>       
+
             </form>
 
-            <?php include("./localisation.php") ?>       
 
         </section>
     </main>

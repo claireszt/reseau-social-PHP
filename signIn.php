@@ -34,7 +34,7 @@ session_destroy();
                 $_SESSION['id'] = $result['id'];
                 $_SESSION['localisation'] = $result['localisation'];
                 // On redirige vers le fichier admin.php
-                header('Location: ./niveau1/admin.php');
+                header('Location: ./accueil.php');
                 exit();
               }
               else{
@@ -51,7 +51,7 @@ session_destroy();
 <!doctype html>
 <html lang="fr">
   <head>
-    <title>Formulaire d'authentification</title>
+    <title>Se connecter</title>
     <link rel="stylesheet" href="./htmlcss/stylesheets/_body.css">
 
   </head>
