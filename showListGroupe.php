@@ -1,7 +1,6 @@
 <?php
-// session_start();
-$userid = '1';
-// $userid = $_SESSION['id'];
+
+include("./sessionprolong.php");
 
 $mysqli = new mysqli("localhost", "root", "root", "voisinous");
 if ($mysqli->connect_errno) {

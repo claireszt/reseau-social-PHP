@@ -1,6 +1,6 @@
 <?php 
 include("./sessionprolong.php");
-include("./functionCalculDistance.php")     ?>
+include("./functionCalculDistance.php");    ?>
 
 
 <?php
