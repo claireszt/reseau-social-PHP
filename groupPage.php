@@ -59,6 +59,8 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
 
     <link rel="stylesheet" href="./htmlcss/stylesheets/_body.css">
     <link rel="stylesheet" href="./htmlcss/stylesheets/groupPage.css">
+    <link rel="stylesheet" href="./htmlcss/stylesheets/message.css">
+
 
 </head>
 
@@ -91,7 +93,16 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
         <?php 
         if(isUserMember($mysqli)==true) {
             echo("<section id='groupFeed'>
-            <button id='newmessage'>Nouveau message</button>
+            <form action='".setComments($mysqli)."' method='POST'>
+                    <textarea name='content' style='color:grey;' placeholder='Ecrivez quelque chose ...'></textarea>
+                    <button id='newmessage' type=submit value='envoyer' name='commentSubmit'>Nouveau message</button>
+                    <input type='hidden' name='date' value='".date('Y-m-d H:i:s')."'>
+                </form>;
+
+                <form action='".getComments($mysqli)."' method='POST'>
+                </form>;
+
+            <button name='contentSubmit' id='newmessage' type='submit' value='envoyer'>Nouveau message</button>
             <article class='message'>
                 <div class='messageHeader'>
                     <p>5 octobre 2023</p>
@@ -103,12 +114,16 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
                 </div>
             </article>
         </section>");
-        }
-        else{
+            
+        } else {
             echo ("<section id='groupFeed'>
             <a href='./joinGroupe.php?id=" . $groupId . "'><button id='newmessage'>Rejoindre le groupe</button></a>
             </section>");
         }
+        ?>
+        
+        <?php 
+           
         ?>
 
     </main>

@@ -49,15 +49,27 @@ function setComments($mysqli) {
 
 // Fonction qui permet d'afficher tous les pseudos, messages et groupe ID. 
 function getComments($mysqli) {
-    $selectComments = "SELECT * FROM Posts WHERE id = " . $userid['15'] . ";";
+    $selectComments = "SELECT * FROM Posts WHERE userid = " . $_SESSION['id']. ";";
     $queryGetComments = $mysqli->query($selectComments);
    // $row = $queryGetComments->fetch_assoc();
     while ($row = $queryGetComments->fetch_assoc()) {
-        echo "<div><p>";
-            echo $_SESSION["pseudo"] . " a publié ";
-            echo $row["content"] . " dans le groupe: " . "<br>";
+        echo "<section id='groupFeed'>
+        <article class='message'>
+                <div class='messageHeader'>
+                   <p>" . $row['date'] . "</p>
+                   <p>" . $_SESSION['pseudo'] . "</p>
+               </div>
+        <br><p>" . $row["content"] . "</p>
+       <div class='messageFooter'>
+                    <p>♥ 13</p>
+                </div>
+            </article>";
+
+    //    echo "<div><p>";
+    //        echo $_SESSION["pseudo"] . " a publié ";
+    //        echo $row["content"] . " dans le groupe. " . "<br>";
          //   echo $row["groupeid"]."<br><br>";
-        echo "</p></div>";
+     //   echo "</p></div>";
     }
 }
 
