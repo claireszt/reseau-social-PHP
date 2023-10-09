@@ -67,7 +67,13 @@ function getAllCommentsByUser($mysqli) {
     WHERE userid = " . $_SESSION['id'] . ";";
     $queryAllMessages = $mysqli->query($querygetAllMessages);
 
+    $allMessages = array();
     foreach($queryAllMessages as $message){
+        array_push($allMessages,$message);
+    }
+    $allMessages = array_reverse($allMessages);
+
+    foreach($allMessages as $message){
 
         $queryGroupName = 
         "SELECT name FROM groupes
