@@ -20,7 +20,7 @@ if ($mysqli->connect_errno) {
         WHERE id = " . $groupeID['groupid'] . ";";
         $groupInfo = $mysqli->query($queryGroupInfo);
         foreach ($groupInfo as $groupe) {
-            echo "<li><a href='groupPage.php'>" . $groupe['name'] . "</a></li>";
+            echo "<li><a href='groupPage.php?id=" . $groupeID['groupid'] . "'>" . $groupe['name'] . "</a></li>";
         }
     }
 

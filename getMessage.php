@@ -20,8 +20,8 @@ if(empty($_SESSION['pseudo']))
     </head>
     <body>
         
-        <?php include("htmlcss/navbar.php")?> <!-- import navbar -->
-        <?php include("htmlcss/index.html")?> <!-- import index -->
+        <?php include("./htmlcss/navbar.php")?> <!-- import navbar -->
+        <?php include("./htmlcss/index.html")?> <!-- import index -->
 
     <?php
     // Connection à la base de données
