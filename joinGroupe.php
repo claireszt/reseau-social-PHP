@@ -15,10 +15,10 @@ if ($mysqli->connect_errno) {
         . "'" . $groupid . "');";
 
     $joinGroupe = $mysqli->query($queryJoinGroupe);
-    echo "<pre>" . print_r($joinGroupe) . "</pre>";
 
     if ($joinGroupe != '') {
-        echo 'Vous avez rejoint le groupe';
+        header("Location: ./groupPage.php?id=" . $_GET['id'] );
+        exit();
     }
 }
 
