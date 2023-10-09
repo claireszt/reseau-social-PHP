@@ -9,7 +9,9 @@
 
 </head>
 <body>
-    <?php include("htmlcss/navbar.php")?>
+    <?php 
+    include("./sessionprolong.php");
+    include("htmlcss/navbar.php");?>
 
     <main>
     <section id="createGroupForm">
