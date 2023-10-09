@@ -5,7 +5,7 @@ session_start();
 if(empty($_SESSION['pseudo'])) 
 {
   // Si inexistante ou nulle, on redirige vers le formulaire de login
-  header('Location: http://localhost/signIn.php');
+  header('Location: ./signIn.php');
   exit();
 }
 ?>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <link rel="stylesheet" href="/htmlcss/stylesheets/_body.css">
+    <link rel="stylesheet" href="./htmlcss/stylesheets/_body.css">
 
 </head>
 <body>
@@ -28,19 +28,16 @@
             $private = '0'; // $private = $_POST["private"];
             $adminid = '1'; // $adminid = $_POST["adminid"];
             $date = "CURRENT_TIMESTAMP";
+            $latitude = $_POST['lat'];
+            $longitude = $_POST['lon'];
             $photo = $_FILES['img']['name'];
 
-            $queryCreateGroup = "INSERT INTO Groupes (name, description, localisation, photo, private, date, adminid) "
-                 . "VALUES (" 
-                 . "'" . $name . "'," 
-                 . "'" . $description . "',"
-                 . "'" . $localisation . "'," 
-                 . "'" . $photo . "',"
-                 . "'" . $private . "'," 
-                 . "CURRENT_TIMESTAMP ,"
-                 . "'" . $adminid . "');";
+            $queryCreateGroup = $mysqli->prepare("INSERT INTO Groupes (name, description, localisation, photo, private, latitude, longitude, adminid) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
-            $createGroupe = $mysqli->query($queryCreateGroup);
+            $queryCreateGroup->bind_param('ssissddi', $name, $description, $localisation, $photo, $private, $latitude, $longitude, $adminid);
+
+            $createGroupe = $queryCreateGroup->execute();
 
             move_uploaded_file($_FILES['img']['tmp_name'], 'uploads/groups/' . basename($_FILES['img']['name']));
 

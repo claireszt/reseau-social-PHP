@@ -1,7 +1,7 @@
     <nav>
-        <div class="nav-left"><img src="https://cdn-icons-png.flaticon.com/256/3523/3523319.png">
+        <div class="nav-left"><img id="logo" src="https://cdn-icons-png.flaticon.com/256/3523/3523319.png">
         <!-- <h1 id="name">VOISINOUS</h1> -->
-            <button>ACCUEIL</button>
+            <a href="accueil.php"><button>ACCUEIL</button></a>
             <button>RECHERCHE</button>
         </div>
         <div class="nav-right"><button>MON PROFIL</button></div>
