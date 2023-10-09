@@ -6,7 +6,7 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
         exit();
     }
     else{
-        $groupId = "11"; // recupéré id du groupe grace a l'url
+        $groupId = $_GET['id']; // recupéré id du groupe grace a l'url
         $querySearchGroup = "SELECT * "
         . "FROM groupes "
         . "WHERE "
