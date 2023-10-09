@@ -8,7 +8,7 @@
     gap: 10px;
 }
 
-#newmessage {
+#newmessage, #newgroup {
     border: 2px solid #fd676a;
     background-color: white;
     padding:10px;
@@ -19,7 +19,7 @@
     margin-bottom: 20px;
 }
 
-#newmessage:hover {
+#newmessage:hover, #newgroup:hover {
     background-color: #fd676a;
     color: white;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
@@ -56,3 +56,4 @@
     text-decoration: none;
     font-weight: 600;
 }
+

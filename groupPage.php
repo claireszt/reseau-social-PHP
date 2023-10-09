@@ -20,7 +20,8 @@
                     src="https://scontent-cdg4-3.xx.fbcdn.net/v/t39.30808-6/295177885_469072138554182_3136524954159481461_n.png?_nc_cat=106&ccb=1-7&_nc_sid=a2f6c7&_nc_ohc=lr7_QKzipPwAX-JIw3E&_nc_ht=scontent-cdg4-3.xx&cb_e2o_trans=t&oh=00_AfBCbK-3QSZDGUaUXKm9ni9KPU_qhcC1CyCl6vMPKTh9Qw&oe=6522828A" />
                 <div>
                     <div>
-                        <h3>Les bricoleurs du dimanche</h3><br />
+                        <h3>Les bricoleurs du dimanche</h3>
+                        <h5>créé le 4 octobre 2023</h5>
                         <span>75011</span>
                     </div>
                 </div>
@@ -29,7 +30,7 @@
                     laoreet justo. Ut quam nisl, cursus et ante in, lacinia congue sapien. Nam vel tortor tincidunt,
                     ornare mi quis, tristique ipsum. Nulla facilisi. Vestibulum at mi a sem efficitur mattis. Sed
                     finibus nulla ex.</p>
-                <h3>Membres</h3>
+                <h3>Membres (3)</h3>
                 <ul>
                     <li>Gérard</li>
                     <li>Michel</li>
