@@ -33,8 +33,8 @@
     var northEast = L.latLng(51.63643116025757, 10.960406494409353);
     var bounds = L.latLngBounds(southWest, northEast);
 
-    var searchControl = new L.esri.Geocoding.geosearch({ useMapBounds: false }, { searchBounds: bounds }, { expanded: false }).addTo(map);
-    // searchControl._container.style.width = "300px"
+    var searchControl = new L.esri.Geocoding.geosearch({ useMapBounds: false }, { searchBounds: bounds }, { expanded: true }).addTo(map);
+    searchControl._container.style.width = "300px"
 
     var results = L.layerGroup().addTo(map);
     
