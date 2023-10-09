@@ -27,7 +27,6 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
                     WHERE id = " . $userId['userid'] . ";";
                     $userInfo = $mysqli->query($queryUserInfo);
                     $resultUserOfGroup = $userInfo->fetch_array();
-                    print_r($resultUserOfGroup);
                     array_push($resultUserForGroup,$resultUserOfGroup);
 
             
