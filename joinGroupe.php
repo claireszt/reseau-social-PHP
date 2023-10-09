@@ -1,7 +1,7 @@
 <?php
 include("./sessionprolong.php");
 $userid = $_SESSION['id'];
-$groupid = '11'; // A remplacer
+$groupid = '12'; // A remplacer
 
 $mysqli = new mysqli("localhost", "root", "root", "voisinous");
 if ($mysqli->connect_errno)
