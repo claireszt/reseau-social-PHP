@@ -2,6 +2,8 @@
 
 include("./sessionprolong.php");
 
+$userid = $_SESSION['id'];
+
 $mysqli = new mysqli("localhost", "root", "root", "voisinous");
 if ($mysqli->connect_errno) {
     echo ("Échec de la connexion : " . $mysqli->connect_error);
