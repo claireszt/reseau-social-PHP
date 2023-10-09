@@ -1,4 +1,8 @@
-<?php include("./sessionprolong.php"); ?>
+<?php 
+include("./sessionprolong.php"); 
+include("./messageFonctions.php");
+getAllCommentsByUser($mysqli);
+?>
 
 <!DOCTYPE html>
 <html lang="en">
