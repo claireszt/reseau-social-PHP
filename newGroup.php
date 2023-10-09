@@ -18,9 +18,10 @@
     <?php include("htmlcss/navbar.php")?>
 
     <main>
-    <section id="createForm">
-        <h1>NOUVEAU GROUPE</h1>
+    <section id="createFormGroup">
         <form action="createGroupe.php" method="post" enctype="multipart/form-data">
+        <h1>NOUVEAU GROUPE</h1>
+
                 <div>
                     <input type="text" name="name" placeholder="nom du groupe" required />
                 </div>
@@ -38,9 +39,11 @@
                     <input type="file" name="img" placeholder="votre photo de profil">
                 </div>
                 <input type="submit" value="VALIDER" /> 
-                <?php include("./localisation.php") ?>       
                 
             </form>
+
+            <?php include("./localisation.php") ?>       
+
         </section>
     </main>
 
