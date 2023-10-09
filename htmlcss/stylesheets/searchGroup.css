@@ -1,0 +1,47 @@
+.groupDistance {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.groupDistance h5, .groupDistance p {
+    margin: 0;
+    padding: 0;
+}
+
+.groupDistance p {
+    font-size: small;
+}
+
+#groupSearchForm {
+    background-color: white;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+#distanceGroups {
+    background-color: white;
+    width: 29%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#radioBtns {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+#radioBtns div {
+    display: flex;
+    flex-direction: row;
+}
+
+input[type=radio] {
+    width: 10px;
+}

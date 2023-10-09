@@ -6,6 +6,7 @@
 @import url(signIn.css);
 @import url(groupPage.css);
 @import url(message.css);
+@import url(searchGroup.css);
 
 html {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

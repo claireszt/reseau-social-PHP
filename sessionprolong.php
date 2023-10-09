@@ -8,7 +8,4 @@ if(empty($_SESSION['pseudo']))
   header('Location: ./signIn.php');
   exit();
 }
-else{
-  print_r($_SESSION);
-}
 ?>
