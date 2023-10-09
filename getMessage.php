@@ -79,8 +79,12 @@ if(empty($_SESSION['pseudo']))
                     <button type=submit value='envoyer' name='commentSubmit'>Envoyer</button>
                     <input type='hidden' name='date' value='".date('Y-m-d H:i:s')."'>
                 </form>";
-            echo "<p>"
-            ?>
+
+            echo "<form action='".getComments($mysqli)."' method='POST'>
+                </form>";
+                ?>
+             
+            
     </body>
 <html>
   

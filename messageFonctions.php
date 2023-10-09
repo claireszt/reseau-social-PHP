@@ -31,7 +31,6 @@ function setComments($mysqli) {
 
         $createmessage = $mysqli->query($queryInsertMessage);
             if ($createmessage === TRUE) {
-                echo "Données insérées avec succès.";
             } else {
                 echo "Erreur lors de l'insertion : " . $mysqli->error;
             }
@@ -50,14 +49,14 @@ function setComments($mysqli) {
 
 // Fonction qui permet d'afficher tous les pseudos, messages et groupe ID. 
 function getComments($mysqli) {
-    $selectComments = "SELECT * FROM Posts";
+    $selectComments = "SELECT content FROM Posts";
     $queryGetComments = $mysqli->query($selectComments);
    // $row = $queryGetComments->fetch_assoc();
     while ($row = $queryGetComments->fetch_assoc()) {
         echo "<div><p>";
             echo $_SESSION["pseudo"] . " a publié ";
             echo $row["content"] . " dans le groupe: " . "<br>";
-            echo $row["groupeid"]."<br><br>";
+         //   echo $row["groupeid"]."<br><br>";
         echo "</p></div>";
     }
 }
