@@ -17,12 +17,12 @@ function setComments($mysqli) {
         $content= $_POST["content"];
         $userid = $_SESSION['id']; // $userid = $_POST["userid"];
         $date = "CURRENT_TIMESTAMP";
-        $groupeid = '5';
+        $groupeid = '12';
         $principale = '1'; // $principale = $_POST["principale"]; 
 
 
         $queryInsertMessage = "INSERT INTO Posts (content, userid, date, groupeid, principale) "
-                    . "VALUES ('" 
+                    . "VALUES ('"
                     . $content . "',"
                     . "'" . $userid . "',"
                     . "CURRENT_TIMESTAMP" . ", '"
@@ -36,7 +36,7 @@ function setComments($mysqli) {
             }
 
                $querySearchUser = "SELECT * "
-                    . "FROM users "
+                    . "FROM Users "
                     . "WHERE "
                     . "pseudo LIKE '" . $pseudo . "'"
                     ;
@@ -49,7 +49,7 @@ function setComments($mysqli) {
 
 // Fonction qui permet d'afficher tous les pseudos, messages et groupe ID. 
 function getComments($mysqli) {
-    $selectComments = "SELECT content FROM Posts";
+    $selectComments = "SELECT * FROM Posts WHERE id = " . $userid['15'] . ";";
     $queryGetComments = $mysqli->query($selectComments);
    // $row = $queryGetComments->fetch_assoc();
     while ($row = $queryGetComments->fetch_assoc()) {

@@ -1,4 +1,5 @@
 <?php 
+$currentDate = date_default_timezone_set("Europe/Paris");
 $mysqli = new mysqli("localhost", "root", "root", "voisinous");
     //verification
     if ($mysqli->connect_errno){
@@ -6,7 +7,7 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
         exit();
     }
     else{
-        $groupId = "11"; // recupéré id du groupe grace a l'url
+        $groupId = "12"; // recupéré id du groupe grace a l'url
         $querySearchGroup = "SELECT * "
         . "FROM groupes "
         . "WHERE "
@@ -48,11 +49,13 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
     <title>Voisinous</title>
 
     <link rel="stylesheet" href="./htmlcss/stylesheets/_body.css">
+    <link rel="stylesheet" href="./htmlcss/stylesheets/groupPage.css">
 
 </head>
 
 <body>
     <?php include("htmlcss/navbar.php") ?>
+    <?php include("messageFonctions.php") ?>
 
     <main>
         <aside id="groupProfile">
@@ -77,6 +80,16 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
             </article>
         </aside>
         <section id="groupFeed">
+        <?php 
+            echo "<form action='".setComments($mysqli)."' method='POST'>
+                    <textarea name='content' style='color:grey;' placeholder='Ecrivez quelque chose ...'></textarea>
+                    <button type=submit value='envoyer' name='commentSubmit'>Envoyer</button>
+                    <input type='hidden' name='date' value='".date('Y-m-d H:i:s')."'>
+                </form>";
+
+            echo "<form action='".getComments($mysqli)."' method='POST'>
+                </form>";
+                ?>
             <button id="newmessage">Nouveau message</button>
             <article class="message">
                 <div class="messageHeader">
@@ -88,9 +101,20 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
                     <p>♥ 13</p>
                 </div>
             </article>
+           
+            <article class="message">
+                <div class="messageHeader">
+                    <p><?php echo $row['date'] ?></p>
+                    <p><?php echo $_SESSION['pseudo'] ?></p>
+                </div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dignissim dignissim est ut elementum. Sed lacinia purus in mi tempor posuere. Proin eget lacinia turpis, a vulputate enim. Curabitur semper suscipit diam, et tincidunt ligula vestibulum sed. Curabitur ac ligula at libero scelerisque tristique id non odio. Phasellus vel ante quam. Sed semper eu orci laoreet interdum. Nullam vel est id lectus dignissim luctus congue eget tellus. Sed suscipit leo ut efficitur dictum. Maecenas et rutrum sapien. Etiam mollis venenatis odio, ut lobortis dui commodo ac. Maecenas et venenatis orci, eget viverra risus. Integer viverra hendrerit augue at accumsan.</p>
+                <div class="messageFooter">
+                    <p>♥ 13</p>
+                </div>
+            </article>
+           
         </section>
     </main>
-
 
 </body>
 
