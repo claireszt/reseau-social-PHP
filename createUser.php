@@ -24,26 +24,34 @@
             } else {
                 $pseudo = $_POST["pseudo"];
                 $mail = $_POST["mail"];
-                $mdp = $_POST["mdp"];
-                $mdphash = password_hash($mdp, PASSWORD_DEFAULT);
+                $mdphash = password_hash($_POST["mdp"], PASSWORD_DEFAULT);
                 $localisation = $_POST["localisation"];
-                $date = "CURRENT_TIMESTAMP";
+                $latitude = $_POST['lat'];
+                $longitude = $_POST['lon'];
                 $photo = $_FILES['img']['name'];
 
-                $queryCreateUser = "INSERT INTO Users (pseudo, mail, mdp, localisation, date, photo) "
-                    . "VALUES ("
-                    . "'" . $pseudo . "',"
-                    . "'" . $mail . "',"
-                    . "'" . $mdphash . "',"
-                    . "'" . $localisation
-                    . "', CURRENT_TIMESTAMP ,"
-                    . "'" . $photo . "');";
+                // $queryCreateUser = "INSERT INTO Users (pseudo, mail, mdp, localisation, latitude, longitude, date, photo) "
+                //     . "VALUES ("
+                //     . "'" . $pseudo . "',"
+                //     . "'" . $mail . "',"
+                //     . "'" . $mdphash . "',"
+                //     . "'" . $localisation
+                //     . "', CURRENT_TIMESTAMP ,"
+                //     . "'" . $photo . "');";
+            
+                // $createUser = $mysqli->query($queryCreateUser);
+            
+                $queryCreateUser = $mysqli->prepare("INSERT INTO Users (pseudo, mail, mdp, localisation, latitude, longitude, photo)
+                VALUES (?, ?, ?, ?, ?, ?, ?)");
 
-                $createUser = $mysqli->query($queryCreateUser);
+                $queryCreateUser->bind_param('sssidds', $pseudo, $mail, $mdphash, $localisation, $latitude, $longitude, $photo);
+
+                $createUser = $queryCreateUser->execute();
 
                 move_uploaded_file($_FILES['img']['tmp_name'], 'uploads/users/' . basename($_FILES['img']['name']));
 
                 if ($mysqli->error) {
+                    echo $mysqli->error;
                     echo "  <div class='error'>
                                 <p>Ce pseudo ou cette adresse email existe déjà.</p>
                                 <a href='signUp.php'><button id='retry'>Réessayez</button></a>
@@ -52,7 +60,7 @@
                     echo "<div class='registered'><h2>Inscription réussie !</h2>" .
                         "<h4>Bienvenue " . $pseudo . "</h4>" .
                         "<br /> " . "
-                        <a href='/signIn.php'><button id='login'>Se connecter</button></a></div>";
+                        <a href='./signIn.php'><button id='login'>Se connecter</button></a></div>";
                 }
                 ;
             }
