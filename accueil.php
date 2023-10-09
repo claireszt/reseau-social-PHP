@@ -30,6 +30,7 @@
         </section>
         <aside id="myGroups">
             <h1>Mes groupes</h1>
+            <a href="newGroup.php"><button id="newgroup">Créer un groupe</button></a>
             <ul>
                 <li><a href="groupPage.php">Les Bricoleurs du dimanche</a></li>
                 <li><a href="groupPage.php">Les fous du jardinage</a></li>

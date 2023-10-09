@@ -58,9 +58,10 @@ session_destroy();
   <body>
     <?php include("htmlcss/navbar.php")?>
 
-    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
       <main>
         <section id="signIn">
+        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+
         <h1>Identifiez-vous</h1>
         <?php
           // Rencontre-t-on une erreur ?
