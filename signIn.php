@@ -51,7 +51,7 @@ session_destroy();
 <!doctype html>
 <html lang="fr">
   <head>
-    <title>Formulaire d'authentification</title>
+    <title>Se connecter</title>
     <link rel="stylesheet" href="./htmlcss/stylesheets/_body.css">
 
   </head>

@@ -1,7 +1,5 @@
 <?php
 
-include("./sessionprolong.php");
-
 $userid = $_SESSION['id'];
 
 $mysqli = new mysqli("localhost", "root", "root", "voisinous");

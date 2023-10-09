@@ -6,7 +6,7 @@
         </div>
         <div class="nav-right">
             <?php if(empty($_SESSION['pseudo'])) {
-               echo "<a href='/signIn.php'<button>SE CONNECTER</button></a>";
+               echo "<div id='notLogged'><a href='/signIn.php'>SE CONNECTER</a> <a href='/signUp.php'>S'INSCRIRE</a></div>";
             } else {
                echo "<button>MON PROFIL</button>";
             }
