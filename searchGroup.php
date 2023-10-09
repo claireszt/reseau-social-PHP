@@ -1,6 +1,4 @@
-<?php
-include("./sessionprolong.php"); ?>
-
+<?php include("./sessionprolong.php"); ?>
 
 <?php
 
