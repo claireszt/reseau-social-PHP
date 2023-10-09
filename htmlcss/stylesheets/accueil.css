@@ -33,18 +33,5 @@ h1 {
     margin-bottom: 3px;
 }
 
-#myGroups a {
-    text-decoration: none;
-}
 
-#myGroups a:visited {
-    color: black;
-}
-
-#myGroups a:hover {
-    color: #fd676a;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 15px;
-}
 

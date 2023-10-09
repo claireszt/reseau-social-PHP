@@ -1,7 +1,4 @@
-<?php 
-include("./sessionprolong.php");
-include("./functionCalculDistance.php");    ?>
-
+<?php include("./sessionprolong.php"); ?>
 
 <?php
 
@@ -51,51 +48,66 @@ if (!empty($_POST)) {
     }
 }
 
-
-
-
 ?>
 <!doctype html>
 <html lang="fr">
 
 <head>
-    <title>recherche de groupes</title>
+    <title>Recherche de groupes</title>
+    <link rel="stylesheet" href="./htmlcss/stylesheets/_body.css">
+
 </head>
 
 <body>
-    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-        <fieldset>
-            <legend>recherche de groupes </legend>
+    <?php include("htmlcss/navbar.php"); ?>
+
+    <main>
+
+        <section id="groupSearchForm">
+
+            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+                <h1>RECHERCHER UN GROUPE</h1>
+                <?php
+                // Rencontre-t-on une erreur ?
+                if (!empty($errorMessage)) {
+                    echo '<p>', htmlspecialchars($errorMessage), '</p>';
+                }
+                ?>
+                <fieldset id="radioBtns">
+                    <div>
+                    <input type="radio" name="searchMethod" id="localisation" value="localisation" />
+                        <label for="localisation">par localisation</label>
+                    </div>
+                    <div>
+                    <input type="radio" name="searchMethod" id="nom" value="nom" />
+
+                        <label for="nom">par nom</label>
+                    </div>
+                </fieldset>
+
+
+                <input type="text" name="groupSearch" id="groupSearch" value="" placeholder="écrivez votre recherche ici" />
+                <input type="submit" name="submit" value="Rechercher" />
+                </p>
+            </form>
             <?php
             // Rencontre-t-on une erreur ?
-            if (!empty($errorMessage)) {
-                echo '<p>', htmlspecialchars($errorMessage), '</p>';
-            }
+            if (!empty($result)) {
+
+                // echo "<p id=searchResult>", print_r($result), "</p>";
+                echo "<p>" . $result['name'] . "</p>";
+
+            };
             ?>
-            <p>
-                <label for="localisation">par localisation :</label>
-                <input type="radio" name="searchMethod" id="localisation" value="localisation" />
-            </p>
-            </p>
-            <label for="nom">par nom :</label>
-            <input type="radio" name="searchMethod" id="nom" value="nom" />
-            </p>
-            <label for="groupSearch">Nom du groupe :</label>
-            <input type="text" name="groupSearch" id="groupSearch" value="" />
-            <input type="submit" name="submit" value="Rechercher" />
-            </p>
-        </fieldset>
-        </article>
-        <?php
-        // Rencontre-t-on une erreur ?
-        if (!empty($result)) {
 
-            echo "<p id=searchResult>", print_r($result), "</p>";
+        </section>
 
-        }
-        ?>
-        </main>
-        </div>
+        <aside id="distanceGroups">
+            <h1>GROUPES A PROXIMITE</h1>
+            <?php include("./functionCalculDistance.php") ?>
+        </aside>
+
+    </main>
 </body>
 
 </html>

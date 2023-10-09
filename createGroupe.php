@@ -17,7 +17,7 @@
     <section id="createGroupForm">
         <h1>NOUVEAU GROUPE</h1>
         <?php
-        echo "<pre>" . print_r($_POST, 1) . "</pre>";
+        // echo "<pre>" . print_r($_POST, 1) . "</pre>";
         $mysqli = new mysqli("localhost", "root", "root", "voisinous");
         if ($mysqli->connect_errno)
         {
@@ -46,7 +46,7 @@
             if ($mysqli->error) {
                 print_r($mysqli->error);
             } else {
-                echo "<h2>Groupe créé !</h2>" . "<button>Voir le groupe</button>";
+                echo "<section id='createFormGroup'><h2>Groupe créé !</h2>" . "<button>Voir le groupe</button></section>";
             }
             ;
         }

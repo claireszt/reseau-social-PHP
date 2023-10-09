@@ -4,5 +4,12 @@
             <a href="accueil.php"><button>ACCUEIL</button></a>
             <a href="searchGroup.php"><button>RECHERCHE</button></a>
         </div>
-        <div class="nav-right"><button>MON PROFIL</button></div>
+        <div class="nav-right">
+            <?php if(empty($_SESSION['pseudo'])) {
+               echo "<div id='notLogged'><a href='./signIn.php'>SE CONNECTER</a> <a href='./signUp.php'>S'INSCRIRE</a></div>";
+            } else {
+               echo "<button>MON PROFIL</button>";
+            }
+            ?>
+        </div>
     </nav>

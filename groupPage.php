@@ -1,16 +1,55 @@
-<?php
-    $currentDate = date_default_timezone_set("Europe/Paris");
+<?php 
+$currentDate = date_default_timezone_set("Europe/Paris");
 
 // On prolonge la session
 session_start();
 // On teste si la variable de session existe et contient une valeur
 if(empty($_SESSION['pseudo'])) 
 {
-  // Si inexistante ou nulle, on redirige vers le formulaire de login
-  header('Location: ./signIn.php');
-  exit();
+// Si inexistante ou nulle, on redirige vers le formulaire de login
+header('Location: ./signIn.php');
+exit();
 } 
-?>
+
+$currentDate = date_default_timezone_set("Europe/Paris");
+$mysqli = new mysqli("localhost", "root", "root", "voisinous");
+    //verification
+    if ($mysqli->connect_errno){
+        echo("Échec de la connexion : " . $mysqli->connect_error);
+        exit();
+    }
+    else{
+        $groupId = $_GET['id']; // recupéré id du groupe grace a l'url
+        $querySearchGroup = "SELECT * "
+        . "FROM groupes "
+        . "WHERE "
+        . "id = '" . $groupId . "'";
+        $searchGroup = $mysqli->query($querySearchGroup);
+        $resultGroup = $searchGroup->fetch_assoc();
+        
+        $queryGetUserIdForGroupe = "SELECT * "
+        . "FROM groupemembers "
+        . "WHERE " 
+        . "groupid = '" . $groupId . "'";
+        $searchUserForGroup = $mysqli->query($queryGetUserIdForGroupe);
+        $resultUserForGroup = array();
+            foreach ($searchUserForGroup as $userId){
+                    //print_r($userId);
+                    $queryUserInfo = "SELECT * 
+                    FROM users
+                    WHERE id = " . $userId['userid'] . ";";
+                    $userInfo = $mysqli->query($queryUserInfo);
+                    $resultUserOfGroup = $userInfo->fetch_array();
+                    array_push($resultUserForGroup,$resultUserOfGroup);
+
+            
+           // print_r($resultUserForGroup);
+           }
+        }
+
+
+        ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,6 +60,7 @@ if(empty($_SESSION['pseudo']))
     <title>Voisinous</title>
 
     <link rel="stylesheet" href="./htmlcss/stylesheets/_body.css">
+    <link rel="stylesheet" href="./htmlcss/stylesheets/groupPage.css">
 
 </head>
 
@@ -32,40 +72,36 @@ if(empty($_SESSION['pseudo']))
         <aside id="groupProfile">
             <article id="groupHeader">
                 <img
-                    src="https://scontent-cdg4-3.xx.fbcdn.net/v/t39.30808-6/295177885_469072138554182_3136524954159481461_n.png?_nc_cat=106&ccb=1-7&_nc_sid=a2f6c7&_nc_ohc=lr7_QKzipPwAX-JIw3E&_nc_ht=scontent-cdg4-3.xx&cb_e2o_trans=t&oh=00_AfBCbK-3QSZDGUaUXKm9ni9KPU_qhcC1CyCl6vMPKTh9Qw&oe=6522828A" />
+                    src="./uploads/groups/<?php echo $resultGroup['photo']?>" />
                 <div>
                     <div>
-                        <h3>Les bricoleurs du dimanche</h3>
-                        <h5>créé le 4 octobre 2023</h5>
-                        <span>75011</span>
+                        <h3> <?php echo $resultGroup['name']?> </h3><br />
+                        <span><?php echo $resultGroup['localisation']?></span>
                     </div>
                 </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget dapibus libero, quis vulputate
-                    leo. Nunc in sem pharetra, dictum mauris eu, dapibus sem. Phasellus quis porttitor velit, eget
-                    laoreet justo. Ut quam nisl, cursus et ante in, lacinia congue sapien. Nam vel tortor tincidunt,
-                    ornare mi quis, tristique ipsum. Nulla facilisi. Vestibulum at mi a sem efficitur mattis. Sed
-                    finibus nulla ex.</p>
-                <h3>Membres (3)</h3>
+                <p><?php echo $resultGroup['description']?></p>
+                <h3>Membres</h3>
                 <ul>
-                    <li>Gérard</li>
-                    <li>Michel</li>
-                    <li>Jacqueline</li>
-                </ul>
+                <?php foreach ($resultUserForGroup as $user){
+                 echo "<li>" . $user['pseudo'] ."</li>";}
+                 ?>
+                 </ul> 
+                 
+                
             </article>
         </aside>
         <section id="groupFeed">
-
         <?php 
             echo "<form action='".setComments($mysqli)."' method='POST'>
                     <textarea name='content' style='color:grey;' placeholder='Ecrivez quelque chose ...'></textarea>
-                    <button id='newmessage' type=submit value='envoyer' name='commentSubmit'>Nouveau message</button>
+                    <button type=submit value='envoyer' name='commentSubmit'>Envoyer</button>
                     <input type='hidden' name='date' value='".date('Y-m-d H:i:s')."'>
                 </form>";
 
             echo "<form action='".getComments($mysqli)."' method='POST'>
                 </form>";
                 ?>
-          <!--  <button id="newmessage">Nouveau message</button> -->
+            <button id="newmessage">Nouveau message</button>
             <article class="message">
                 <div class="messageHeader">
                     <p>5 octobre 2023</p>
@@ -76,9 +112,20 @@ if(empty($_SESSION['pseudo']))
                     <p>♥ 13</p>
                 </div>
             </article>
+           
+            <article class="message">
+                <div class="messageHeader">
+                    <p><?php echo $row['date'] ?></p>
+                    <p><?php echo $_SESSION['pseudo'] ?></p>
+                </div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dignissim dignissim est ut elementum. Sed lacinia purus in mi tempor posuere. Proin eget lacinia turpis, a vulputate enim. Curabitur semper suscipit diam, et tincidunt ligula vestibulum sed. Curabitur ac ligula at libero scelerisque tristique id non odio. Phasellus vel ante quam. Sed semper eu orci laoreet interdum. Nullam vel est id lectus dignissim luctus congue eget tellus. Sed suscipit leo ut efficitur dictum. Maecenas et rutrum sapien. Etiam mollis venenatis odio, ut lobortis dui commodo ac. Maecenas et venenatis orci, eget viverra risus. Integer viverra hendrerit augue at accumsan.</p>
+                <div class="messageFooter">
+                    <p>♥ 13</p>
+                </div>
+            </article>
+           
         </section>
     </main>
-
 
 </body>
 

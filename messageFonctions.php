@@ -17,12 +17,12 @@ function setComments($mysqli) {
         $content= $_POST["content"];
         $userid = $_SESSION['id']; // $userid = $_POST["userid"];
         $date = "CURRENT_TIMESTAMP";
-        $groupeid = '5';
+        $groupeid = '12';
         $principale = '1'; // $principale = $_POST["principale"]; 
 
 
         $queryInsertMessage = "INSERT INTO Posts (content, userid, date, groupeid, principale) "
-                    . "VALUES ('" 
+                    . "VALUES ('"
                     . $content . "',"
                     . "'" . $userid . "',"
                     . "CURRENT_TIMESTAMP" . ", '"
@@ -36,7 +36,7 @@ function setComments($mysqli) {
             }
 
                $querySearchUser = "SELECT * "
-                    . "FROM users "
+                    . "FROM Users "
                     . "WHERE "
                     . "pseudo LIKE '" . $pseudo . "'"
                     ;
@@ -49,7 +49,7 @@ function setComments($mysqli) {
 
 // Fonction qui permet d'afficher tous les pseudos, messages et groupe ID. 
 function getComments($mysqli) {
-    $selectComments = "SELECT content FROM Posts";
+    $selectComments = "SELECT * FROM Posts WHERE id = " . $userid['15'] . ";";
     $queryGetComments = $mysqli->query($selectComments);
    // $row = $queryGetComments->fetch_assoc();
     while ($row = $queryGetComments->fetch_assoc()) {
@@ -60,4 +60,44 @@ function getComments($mysqli) {
         echo "</p></div>";
     }
 }
-?>
+
+function getAllCommentsByUser($mysqli) {
+    $querygetAllMessages = 
+    "SELECT * FROM Posts
+    WHERE userid = " . $_SESSION['id'] . ";";
+    $queryAllMessages = $mysqli->query($querygetAllMessages);
+
+    $allMessages = array();
+    foreach($queryAllMessages as $message){
+        array_push($allMessages,$message);
+    }
+    $allMessages = array_reverse($allMessages);
+
+    foreach($allMessages as $message){
+
+        $queryGroupName = 
+        "SELECT name FROM groupes
+        WHERE id = " . $message['groupeid'] . ";";
+        $getGroupName = $mysqli->query($queryGroupName);
+        $groupe = $getGroupName->fetch_array();
+
+        $queryUserPseudo = 
+        "SELECT pseudo FROM users
+        WHERE id = " . $message['userid'] . ";";
+        $getUserPseudo = $mysqli->query($queryUserPseudo);
+        $user = $getUserPseudo->fetch_array();
+
+        echo "<article class='message'>
+                    <div class='messageHeader'>
+                        <p>" . $message['date'] . "</p>
+                        <p>par " . $user['pseudo'] . ", <a href='./groupPage.php?id=". $message['groupeid'] . "'>" . $groupe['name'] . "</a></p>
+                    </div>
+                    <p>" . $message['content'] . "</p>
+                    <div class='messageFooter'>
+                        <p>♥ 256</p>
+                    </div>
+                </article>";
+    }
+}
+
+    ?>
