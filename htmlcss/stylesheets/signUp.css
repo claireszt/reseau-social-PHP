@@ -65,3 +65,7 @@ input[type=submit]:hover {
     border: 2px solid red;
 }
 
+.geocoder-control-suggestion{
+    width: 30px;
+}
+
