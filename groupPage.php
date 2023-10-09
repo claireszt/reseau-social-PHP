@@ -87,7 +87,7 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
                  ?>
                  </ul> 
                  
-                
+                 
             </article>
         </aside>
         <section id="groupFeed">
