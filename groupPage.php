@@ -1,4 +1,5 @@
 <?php 
+include('./sessionprolong.php');
 $mysqli = new mysqli("localhost", "root", "root", "voisinous");
     //verification
     if ($mysqli->connect_errno){
@@ -28,11 +29,21 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
                     $userInfo = $mysqli->query($queryUserInfo);
                     $resultUserOfGroup = $userInfo->fetch_array();
                     array_push($resultUserForGroup,$resultUserOfGroup);
-
-            
-           // print_r($resultUserForGroup);
            }
+           function isUserMember($mysqli){
+            $queryMembership = "
+            SELECT *
+            FROM groupemembers
+            WHERE userid = " . $_SESSION['id'] . "
+            AND groupid = " . $_GET['id'] . ";";
+            $membership = $mysqli->query($queryMembership);
+            if($membership->num_rows>=1){
+                return true;
+            }
+            return false;
         }
+        }
+
 
 
         ?>
@@ -75,19 +86,29 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
                 
             </article>
         </aside>
-        <section id="groupFeed">
-            <button id="newmessage">Nouveau message</button>
-            <article class="message">
-                <div class="messageHeader">
+        <?php 
+        if(isUserMember($mysqli)==true) {
+            echo("<section id='groupFeed'>
+            <button id='newmessage'>Nouveau message</button>
+            <article class='message'>
+                <div class='messageHeader'>
                     <p>5 octobre 2023</p>
                     <p>par Claire</p>
                 </div>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dignissim dignissim est ut elementum. Sed lacinia purus in mi tempor posuere. Proin eget lacinia turpis, a vulputate enim. Curabitur semper suscipit diam, et tincidunt ligula vestibulum sed. Curabitur ac ligula at libero scelerisque tristique id non odio. Phasellus vel ante quam. Sed semper eu orci laoreet interdum. Nullam vel est id lectus dignissim luctus congue eget tellus. Sed suscipit leo ut efficitur dictum. Maecenas et rutrum sapien. Etiam mollis venenatis odio, ut lobortis dui commodo ac. Maecenas et venenatis orci, eget viverra risus. Integer viverra hendrerit augue at accumsan.</p>
-                <div class="messageFooter">
+                <div class='messageFooter'>
                     <p>♥ 13</p>
                 </div>
             </article>
-        </section>
+        </section>");
+        }
+        else{
+            echo ("<section id='groupFeed'>
+            <a href='./joinGroupe.php?id=" . $groupId . "'><button id='newmessage'>Rejoindre le groupe</button></a>
+            </section>");
+        }
+        ?>
+
     </main>
 
 
