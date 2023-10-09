@@ -33,18 +33,5 @@ h1 {
     margin-bottom: 3px;
 }
 
-a {
-    text-decoration: none;
-}
 
-a:visited {
-    color: black;
-}
-
-a:hover {
-    color: #fd676a;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 15px;
-}
 

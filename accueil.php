@@ -11,6 +11,8 @@ include("./messageFonctions.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Voisinous</title>
 
+    <link rel="icon" type="image/png" href="logo.png" />
+
     <link rel="stylesheet" href="./htmlcss/stylesheets/_body.css">
 
 </head>

@@ -1,32 +1,27 @@
 <?php
 include("./sessionprolong.php");
 $userid = $_SESSION['id'];
-$groupid = '12'; // A remplacer
+$groupid = '16'; // A remplacer
+
 
 $mysqli = new mysqli("localhost", "root", "root", "voisinous");
-if ($mysqli->connect_errno)
-{
-    echo("Échec de la connexion : " . $mysqli->connect_error);
+if ($mysqli->connect_errno) {
+    echo ("Échec de la connexion : " . $mysqli->connect_error);
     exit();
-}
-else {
+} else {
     $queryJoinGroupe = "INSERT INTO groupemembers (userid, groupid) "
-    . "VALUES (" 
-    . "'" . $userid . "'," 
-    . "'" . $groupid . "');" ;
+        . "VALUES ("
+        . "'" . $userid . "',"
+        . "'" . $groupid . "');";
 
-$joinGroupe = $mysqli->query($queryJoinGroupe);
-    if($joinGroupe!='')
-    {
-        print_r($joinGroupe);
+    $joinGroupe = $mysqli->query($queryJoinGroupe);
+    echo "<pre>" . print_r($joinGroupe) . "</pre>";
+
+    if ($joinGroupe != '') {
         echo 'Vous avez rejoint le groupe';
-    }
-    else{
+    } else {
         echo 'aa';
-        print_r($joinGroupe);
     }
 }
 
 ?>
-
-                
