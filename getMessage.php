@@ -10,7 +10,7 @@ if(empty($_SESSION['pseudo']))
   // Si inexistante ou nulle, on redirige vers le formulaire de login
   header('Location: ./signIn.php');
   exit();
-}
+} 
 ?>
 
 <!doctype html>
@@ -74,11 +74,12 @@ if(empty($_SESSION['pseudo']))
               ?>
 
             <?php 
-            echo "<form action='".getComments($mysqli)."' method='POST'>
+            echo "<form action='".setComments($mysqli)."' method='POST'>
                     <textarea name='content' style='color:grey;' placeholder='Ecrivez quelque chose ...'></textarea>
                     <button type=submit value='envoyer' name='commentSubmit'>Envoyer</button>
                     <input type='hidden' name='date' value='".date('Y-m-d H:i:s')."'>
                 </form>";
+            echo "<p>"
             ?>
     </body>
 <html>
