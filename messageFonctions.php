@@ -60,4 +60,15 @@ function getComments($mysqli) {
         echo "</p></div>";
     }
 }
-?>
+
+function getAllCommentsByUser($mysqli) {
+    $querygetAllMessages = 
+    "SELECT * FROM Posts
+    WHERE userid = " . $_SESSION['id'] . ";";
+    $queryAllMessages = $mysqli->query($querygetAllMessages);
+    foreach($queryAllMessages as $message){
+        print_r($message);
+    }
+}
+
+    ?>

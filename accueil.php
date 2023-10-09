@@ -1,4 +1,8 @@
-<?php include("./sessionprolong.php"); ?>
+<?php 
+include("./sessionprolong.php"); 
+include("./messageFonctions.php");
+getAllCommentsByUser($mysqli);
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +17,7 @@
 </head>
 
 <body>
-    <?php include("htmlcss/navbar.php") ?> 
+    <?php include("./htmlcss/navbar.php") ?> 
 
     <main>
         <section id="feed">
