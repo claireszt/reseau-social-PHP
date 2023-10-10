@@ -63,9 +63,11 @@ function getComments($mysqli) {
 
 function getAllCommentsByUser($mysqli) {
     $querygetAllMessages = 
-    "SELECT * FROM Posts
+    "SELECT *, DATE_FORMAT(date, '%d-%m-%Y') AS formatted_date  FROM Posts
     WHERE userid = " . $_SESSION['id'] . ";";
     $queryAllMessages = $mysqli->query($querygetAllMessages);
+
+
 
     $allMessages = array();
     foreach($queryAllMessages as $message){
@@ -74,6 +76,9 @@ function getAllCommentsByUser($mysqli) {
     $allMessages = array_reverse($allMessages);
 
     foreach($allMessages as $message){
+
+        $date = $message['formatted_date'];
+        $heure = date('H:i', strtotime($message['date'])); 
 
         $queryGroupName = 
         "SELECT name FROM groupes
@@ -89,7 +94,7 @@ function getAllCommentsByUser($mysqli) {
 
         echo "<article class='message'>
                     <div class='messageHeader'>
-                        <p>" . $message['date'] . "</p>
+                        <p> le " . $date . " à " . $heure . "</p>
                         <p>par " . $user['pseudo'] . " (<a href='./groupPage.php?id=". $message['groupeid'] . "'>" . $groupe['name'] . "</a>)</p>
                     </div>
                     <p>" . $message['content'] . "</p>
@@ -102,7 +107,7 @@ function getAllCommentsByUser($mysqli) {
 
 function getAllCommentsByGroup($mysqli, $groupeid) {
     $querygetAllMessagesGroup = 
-    "SELECT * FROM Posts
+    "SELECT *, DATE_FORMAT(date, '%d-%m-%Y') AS formatted_date FROM Posts
     WHERE userid = " . $_SESSION['id'] . " AND groupeid = " . $groupeid .";";
     $queryMessagesGroup = $mysqli->query($querygetAllMessagesGroup);
 
@@ -113,6 +118,9 @@ function getAllCommentsByGroup($mysqli, $groupeid) {
     $allMessagesGroup = array_reverse($allMessagesGroup);
 
     foreach($allMessagesGroup as $message){
+
+        $date = $message['formatted_date'];
+        $heure = date('H:i', strtotime($message['date'])); 
 
         $queryGroupName = 
         "SELECT name FROM groupes
@@ -128,7 +136,7 @@ function getAllCommentsByGroup($mysqli, $groupeid) {
 
         echo "<article class='message'>
                     <div class='messageHeader'>
-                        <p>" . $message['date'] . "</p>
+                    <p> le " . $date . " à " . $heure . "</p>
                         <p>par " . $user['pseudo'] . "</p>
                     </div>
                     <p>" . $message['content'] . "</p>
@@ -136,6 +144,10 @@ function getAllCommentsByGroup($mysqli, $groupeid) {
                         <a href=''>♥ 256</a>
                     </div>
                 </article>";
+    }
+
+    if (empty($allMessagesGroup)) {
+        echo "<p class='empty'>Aucun message dans ce groupe</p>";
     }
 }
 

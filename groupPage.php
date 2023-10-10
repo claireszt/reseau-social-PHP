@@ -19,7 +19,7 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
 
         $groupId = $_GET['id']; // Récupération de l'ID du groupe depuis l'URL
 
-        $querySearchGroup = "SELECT *, DATE_FORMAT(date, '%e %M %Y') AS formatted_date "
+        $querySearchGroup = "SELECT *, DATE_FORMAT(date, '%d-%m-%Y') AS formatted_date "
             . "FROM groupes "
             . "WHERE id = '" . $groupId . "'";
 
