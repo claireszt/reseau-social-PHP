@@ -1,5 +1,7 @@
 <?php 
 include('./sessionprolong.php');
+include("messageFonctions.php");
+
 $mysqli = new mysqli("localhost", "root", "root", "voisinous");
     //verification
     if ($mysqli->connect_errno){
@@ -66,7 +68,6 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
 
 <body>
     <?php include("htmlcss/navbar.php") ?>
-    <?php include("messageFonctions.php") ?>
 
     <main>
         <aside id="groupProfile">
@@ -97,12 +98,11 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
                     <textarea name='content' style='color:grey;' placeholder='Ecrivez quelque chose ...'></textarea>
                     <button id='newmessage' type=submit value='envoyer' name='commentSubmit'>Nouveau message</button>
                     <input type='hidden' name='date' value='".date('Y-m-d H:i:s')."'>
-                </form>;
+                </form>
 
                 <form action='".getComments($mysqli)."' method='POST'>
-                </form>;
+                </form>
 
-            <button name='contentSubmit' id='newmessage' type='submit' value='envoyer'>Nouveau message</button>
             <article class='message'>
                 <div class='messageHeader'>
                     <p>5 octobre 2023</p>

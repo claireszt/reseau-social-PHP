@@ -47,31 +47,43 @@ function setComments($mysqli) {
 }
 
 
-// Fonction qui permet d'afficher tous les pseudos, messages et groupe ID. 
+// Fonction qui permet d'afficher tous les pseudos, messages et groupe ID.
 function getComments($mysqli) {
-    $selectComments = "SELECT * FROM Posts WHERE userid = " . $_SESSION['id']. ";";
+    // Sélectionnez tous les commentaires de tous les utilisateurs
+    $selectComments = "SELECT p.content, p.date, u.pseudo 
+                       FROM Posts p
+                       INNER JOIN Users u ON p.userid = u.id";
     $queryGetComments = $mysqli->query($selectComments);
-   // $row = $queryGetComments->fetch_assoc();
-    while ($row = $queryGetComments->fetch_assoc()) {
-        echo "<section id='groupFeed'>
-        <article class='message'>
-                <div class='messageHeader'>
-                   <p>" . $row['date'] . "</p>
-                   <p>" . $_SESSION['pseudo'] . "</p>
-               </div>
-        <br><p>" . $row["content"] . "</p>
-       <div class='messageFooter'>
-                    <p>♥ 13</p>
-                </div>
-            </article>";
+
+    // Vérifiez si la requête a réussi
+    if ($queryGetComments) {
+        // Parcourez les résultats et affichez-les
+        while ($comments = $queryGetComments->fetch_assoc()) {
+            echo "<section id='groupFeed'>
+                    <article class='message'>
+                        <div class='messageHeader'>
+                            <p>" . $comments['date'] . "</p>
+                            <p>" . $comments['pseudo'] . "</p>
+                        </div>
+                        <br><p>" . $comments["content"] . "</p>
+                        <div class='messageFooter'>
+                            <p>♥ 13</p>
+                        </div>
+                    </article>
+                  </section>";  
+        }
+    } else {
+        echo "Erreur lors de la récupération des commentaires : " . $mysqli->error;
+    }
+}
 
     //    echo "<div><p>";
     //        echo $_SESSION["pseudo"] . " a publié ";
     //        echo $row["content"] . " dans le groupe. " . "<br>";
          //   echo $row["groupeid"]."<br><br>";
      //   echo "</p></div>";
-    }
-}
+    
+
 
 function getAllCommentsByUser($mysqli) {
     $querygetAllMessages = 
@@ -112,4 +124,42 @@ function getAllCommentsByUser($mysqli) {
     }
 }
 
+function getAllCommentsByGroup($mysqli, $groupeid) {
+    $querygetAllMessagesGroup = 
+    "SELECT * FROM Posts
+    WHERE userid = " . $_SESSION['id'] . " AND groupeid = " . $groupeid .";";
+    $queryMessagesGroup = $mysqli->query($querygetAllMessagesGroup);
+
+    $allMessagesGroup = array();
+    foreach($queryMessagesGroup as $message){
+        array_push($allMessagesGroup,$message);
+    }
+    $allMessagesGroup = array_reverse($allMessagesGroup);
+
+    foreach($allMessagesGroup as $message){
+
+        $queryGroupName = 
+        "SELECT name FROM groupes
+        WHERE id = " . $message['groupeid'] . ";";
+        $getGroupName = $mysqli->query($queryGroupName);
+        $groupe = $getGroupName->fetch_array();
+
+        $queryUserPseudo = 
+        "SELECT pseudo FROM users
+        WHERE id = " . $message['userid'] . ";";
+        $getUserPseudo = $mysqli->query($queryUserPseudo);
+        $user = $getUserPseudo->fetch_array();
+
+        echo "<article class='message'>
+                    <div class='messageHeader'>
+                        <p>" . $message['date'] . "</p>
+                        <p>par " . $user['pseudo'] . "</p>
+                    </div>
+                    <p>" . $message['content'] . "</p>
+                    <div class='messageFooter'>
+                        <a href=''>♥ 256</a>
+                    </div>
+                </article>";
+    }
+}
     ?>
