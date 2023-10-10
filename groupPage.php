@@ -72,6 +72,7 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
         if(isUserMember($mysqli)==true) {
             if (isset($_POST['commentSubmit'])) {
                 setComments($mysqli);
+               // getAllCommentsByGroup($mysqli, $groupId); Affiche uniquement les messages que l'utilisateur connecté a posté.
             }
             echo ("<form action='".getComments($mysqli)."' method='POST'>
                     <textarea name='content' style='color:grey;' placeholder='Ecrivez quelque chose ...'></textarea>

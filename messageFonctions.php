@@ -56,17 +56,14 @@ function getComments($mysqli) {
                        INNER JOIN Users u ON p.userid = u.id";
     $queryGetComments = $mysqli->query($selectComments);
 
-    // Vérifie si la requête a réussi
-   
-
-        $allComments = array();
-        foreach($queryGetComments as $comments){
-            array_push($allComments,$comments);
-        }
-        $allComments = array_reverse($allComments);
+    $allComments = array();
+    foreach($queryGetComments as $comments){
+        array_push($allComments,$comments);
+    }
+    $allComments = array_reverse($allComments);
         if ($queryGetComments) {
-        foreach($allComments as $comments) {
-        // Parcoure les résultats et les affiche 
+            foreach($allComments as $comments) {
+            // Parcoure les résultats et les affiche 
             echo "<section id='groupFeed'>
                     <article class='message'>
                         <div class='messageHeader'>
@@ -84,14 +81,6 @@ function getComments($mysqli) {
         echo "Erreur lors de la récupération des commentaires : " . $mysqli->error;
     }
 }
-
-    //    echo "<div><p>";
-    //        echo $_SESSION["pseudo"] . " a publié ";
-    //        echo $row["content"] . " dans le groupe. " . "<br>";
-         //   echo $row["groupeid"]."<br><br>";
-     //   echo "</p></div>";
-    
-
 
 function getAllCommentsByUser($mysqli) {
     $querygetAllMessages = 
