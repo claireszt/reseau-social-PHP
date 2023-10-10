@@ -93,7 +93,7 @@ if ($mysqli->connect_errno) {
 
     <title>Voisinous</title>
 
-    <link rel="stylesheet" href="./htmlcss/stylesheets/adminGroupePage.css">
+    <link rel="stylesheet" href="./htmlcss/stylesheets/_body.css">
 
 </head>
 
