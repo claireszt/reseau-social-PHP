@@ -99,6 +99,13 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
             echo "<button class='greyBtn' id='newmessage'>NOUVEAU MESSAGE</button>";
             getAllCommentsByGroup($mysqli, $groupId);
         }
+        if (isset($_POST['commentSubmit'])) {
+            setComments($mysqli);
+        }
+        echo ("<form action='".getComments($mysqli)."' method='POST'>
+                <textarea name='content' style='color:grey;' placeholder='Ecrivez quelque chose ...'></textarea>
+                <button class='greyBtn' id='newmessage' type='submit' value='envoyer' name='commentSubmit'>NOUVEAU MESSAGE</button>
+                </form>");
         else{
             echo ("
             <a href='./joinGroupe.php?id=" . $groupId . "'><button class='redBtn' id='joingroup'>Rejoindre le groupe</button></a>
