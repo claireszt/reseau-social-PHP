@@ -26,7 +26,9 @@
     integrity="sha512-HrFUyCEtIpxZloTgEKKMq4RFYhxjJkCiF5sDxuAokklOeZ68U2NPfh4MFtyIVWlsKtVbK5GD2/JzFyAfvT5ejA=="
     crossorigin=""></script>
 
-    <title>Document</title>
+    <title>Créer un groupe</title>
+
+    <link rel="icon" type="image/png" href="logo.png" />
 
     <link rel="stylesheet" href="./htmlcss/stylesheets/_body.css">
 
@@ -37,7 +39,7 @@
     <?php include("./htmlcss/navbar.php")?>
 
     <main>
-    <section id="createFormGroup">
+    <section class="center" id="createFormGroup">
         <form action="createGroupe.php" method="post" enctype="multipart/form-data">
         <h1>NOUVEAU GROUPE</h1>
 

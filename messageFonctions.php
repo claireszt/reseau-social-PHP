@@ -84,9 +84,11 @@ function getComments($mysqli) {
 
 function getAllCommentsByUser($mysqli) {
     $querygetAllMessages = 
-    "SELECT * FROM Posts
+    "SELECT *, DATE_FORMAT(date, '%d-%m-%Y') AS formatted_date  FROM Posts
     WHERE userid = " . $_SESSION['id'] . ";";
     $queryAllMessages = $mysqli->query($querygetAllMessages);
+
+
 
     $allMessages = array();
     foreach($queryAllMessages as $message){
@@ -95,6 +97,9 @@ function getAllCommentsByUser($mysqli) {
     $allMessages = array_reverse($allMessages);
 
     foreach($allMessages as $message){
+
+        $date = $message['formatted_date'];
+        $heure = date('H:i', strtotime($message['date'])); 
 
         $queryGroupName = 
         "SELECT name FROM groupes
@@ -110,14 +115,60 @@ function getAllCommentsByUser($mysqli) {
 
         echo "<article class='message'>
                     <div class='messageHeader'>
-                        <p>" . $message['date'] . "</p>
-                        <p>par " . $user['pseudo'] . ", <a href='./groupPage.php?id=". $message['groupeid'] . "'>" . $groupe['name'] . "</a></p>
+                        <p> le " . $date . " à " . $heure . "</p>
+                        <p>par " . $user['pseudo'] . " (<a href='./groupPage.php?id=". $message['groupeid'] . "'>" . $groupe['name'] . "</a>)</p>
                     </div>
                     <p>" . $message['content'] . "</p>
                     <div class='messageFooter'>
-                        <p>♥ 256</p>
+                        <a href=''>♥ 256</a>
                     </div>
                 </article>";
+    }
+}
+
+function getAllCommentsByGroup($mysqli, $groupeid) {
+    $querygetAllMessagesGroup = 
+    "SELECT *, DATE_FORMAT(date, '%d-%m-%Y') AS formatted_date FROM Posts
+    WHERE userid = " . $_SESSION['id'] . " AND groupeid = " . $groupeid .";";
+    $queryMessagesGroup = $mysqli->query($querygetAllMessagesGroup);
+
+    $allMessagesGroup = array();
+    foreach($queryMessagesGroup as $message){
+        array_push($allMessagesGroup,$message);
+    }
+    $allMessagesGroup = array_reverse($allMessagesGroup);
+
+    foreach($allMessagesGroup as $message){
+
+        $date = $message['formatted_date'];
+        $heure = date('H:i', strtotime($message['date'])); 
+
+        $queryGroupName = 
+        "SELECT name FROM groupes
+        WHERE id = " . $message['groupeid'] . ";";
+        $getGroupName = $mysqli->query($queryGroupName);
+        $groupe = $getGroupName->fetch_array();
+
+        $queryUserPseudo = 
+        "SELECT pseudo FROM users
+        WHERE id = " . $message['userid'] . ";";
+        $getUserPseudo = $mysqli->query($queryUserPseudo);
+        $user = $getUserPseudo->fetch_array();
+
+        echo "<article class='message'>
+                    <div class='messageHeader'>
+                    <p> le " . $date . " à " . $heure . "</p>
+                        <p>par " . $user['pseudo'] . "</p>
+                    </div>
+                    <p>" . $message['content'] . "</p>
+                    <div class='messageFooter'>
+                        <a href=''>♥ 256</a>
+                    </div>
+                </article>";
+    }
+
+    if (empty($allMessagesGroup)) {
+        echo "<p class='empty'>Aucun message dans ce groupe</p>";
     }
 }
 

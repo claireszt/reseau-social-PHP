@@ -1,0 +1,31 @@
+#userInfo li img {
+    width: 20%;
+}
+
+#userInfo p {
+    margin: 0;
+    padding: 0;
+    font-style: italic;
+    font-size: 0.7em;
+}
+
+#userInfo h1 {
+    margin: 0;
+    padding: 0;
+}
+
+#modifyForm {
+    display: none;
+}
+
+#formUserProfile .readonly {
+    color: rgb(149, 149, 149);
+}
+
+#formUserProfile {
+    margin-top: 20px;
+}
+
+#confirmModif {
+    width: 320px;
+}

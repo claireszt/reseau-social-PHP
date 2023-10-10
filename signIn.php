@@ -26,7 +26,6 @@ session_destroy();
             $searchUser = $mysqli->query($querySearchUser);
             //rajouter check et si la query ne sort pas de ligne renvoyé "le compte spécifié est introuvable
             $result = $searchUser->fetch_assoc();
-            print_r($result);
             if($result != null){
             if(password_verify ($mdp ,$result['mdp'])){
                 session_start();
@@ -38,10 +37,10 @@ session_destroy();
                 exit();
               }
               else{
-                 $errorMessage = 'Mauvais password !';
+                 $errorMessage = 'Le mot de passe est incorrect.';
                 }
             }else{
-                $errorMessage = 'Le compte spécifié est introuvable';
+                $errorMessage = 'Le compte spécifié est introuvable.';
             }
         }
 		    
@@ -53,6 +52,8 @@ session_destroy();
   <head>
     <title>Se connecter</title>
     <link rel="stylesheet" href="./htmlcss/stylesheets/_body.css">
+
+    <link rel="icon" type="image/png" href="logo.png" />
 
   </head>
   <body>

@@ -7,9 +7,11 @@
 @import url(groupPage.css);
 @import url(message.css);
 @import url(searchGroup.css);
+@import url(buttons.css);
+@import url(profilPage.css);
 
 html {
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:'Poppins', sans-serif;
     background-color: lightgray;
 }
 
@@ -22,16 +24,45 @@ main {
 
 a {
     text-decoration: none;
-    color: black;
+    color: #fd676a;
 }
 
 a:visited {
-    color: black;
+    color: #fd676a;
+    text-decoration: none;
 }
 
 a:hover {
-    color: #fd676a;
     text-decoration: none;
     font-weight: 800;
-    font-size: calc(100% + 3px);
+}
+
+.left {
+    background-color: white;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    padding-top: 20px;
+}
+
+.right {
+    background-color: white;
+    width: 29%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    padding-top: 20px;
+}
+
+.center {
+    background-color: white;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    padding-top: 20px;
 }

@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Créer un groupe</title>
+
+    <link rel="icon" type="image/png" href="logo.png" />
 
     <link rel="stylesheet" href="./htmlcss/stylesheets/_body.css">
 
@@ -11,10 +13,12 @@
 <body>
     <?php 
     include("./sessionprolong.php");
-    include("htmlcss/navbar.php");?>
+    include("htmlcss/navbar.php");
+    include("./joinGroupeFunction.php");?>
+
 
     <main>
-    <section id="createGroupForm">
+    <section class="center" id="createGroupForm">
         <h1>NOUVEAU GROUPE</h1>
         <?php
         // echo "<pre>" . print_r($_POST, 1) . "</pre>";
@@ -28,7 +32,7 @@
             $description = $_POST["description"];
             $localisation = $_POST["localisation"];
             $private = '0'; // $private = $_POST["private"];
-            $adminid = '1'; // $adminid = $_POST["adminid"];
+            $adminid = $_SESSION['id']; 
             $date = "CURRENT_TIMESTAMP";
             $latitude = $_POST['lat'];
             $longitude = $_POST['lon'];
@@ -43,16 +47,35 @@
 
             move_uploaded_file($_FILES['img']['tmp_name'], 'uploads/groups/' . basename($_FILES['img']['name']));
 
+
+            // récupérer l'id du groupe créé
+            $queryIdGroup = "SELECT id FROM groupes WHERE name = '" . $name . "'";
+            $resultIdGroup = $mysqli->query($queryIdGroup);
+
+            if ($resultIdGroup) {
+                $row = $resultIdGroup->fetch_assoc(); 
+                if ($row) {
+                    $idGroup = $row['id'];
+                    echo $idGroup;
+                } else {
+                    echo "Aucun groupe trouvé avec ce nom.";
+                }
+            } else {
+                echo "Erreur lors de l'exécution de la requête : " . $mysqli->error;
+            }
+
+            $resultIdGroup->free(); 
+
+            joinGroup($mysqli, $idGroup);
+
             if ($mysqli->error) {
                 print_r($mysqli->error);
             } else {
-                echo "<section id='createFormGroup'><h2>Groupe créé !</h2>" . "<button>Voir le groupe</button></section>";
+                echo "<section class='center'><h2>Groupe créé !</h2>" . "<a href='.groupPage.php?id=" . $idGroup . "'><button>Voir le groupe</button></a></section>";
             }
             ;
         }
         ?>
-
-
 
     </section>
     </main>

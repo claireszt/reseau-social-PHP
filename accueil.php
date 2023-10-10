@@ -21,14 +21,13 @@ include("./messageFonctions.php");
     <?php include("./htmlcss/navbar.php") ?> 
 
     <main>
-        <section id="feed">
+        <section class="left" id="feed">
             <h1>Derniers messages</h1>
-            <button id="newmessage">Nouveau message</button>
             <?php getAllCommentsByUser($mysqli); ?>
         </section>
-        <aside id="myGroups">
+        <aside class="right" id="myGroups">
             <h1>Mes groupes</h1>
-            <a href="newGroup.php"><button id="newgroup">Créer un groupe</button></a>
+            <a href="newGroup.php"><button class="greyBtn" id="newgroup">Créer un groupe</button></a>
             <ul>
                 <?php include("./displayGroups.php") ?>
             </ul>

@@ -1,0 +1,34 @@
+
+.greyBtn {
+    border: none;
+    padding:10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.greyBtn:hover {
+    border: none;
+    background-color: #fd676a;
+    color: white;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+}
+
+.redBtn {
+    border: 2px solid #fd676a;
+    background-color: white;
+    padding:10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.redBtn:hover {
+    background-color: #fd676a;
+    color: white;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+}

@@ -1,28 +1,13 @@
 .message {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width: 90%;
     border-radius: 10px;
     padding: 10px;
     display: flex;
     flex-direction: column;
     gap: 10px;
-}
-
-#newmessage, #newgroup {
-    border: 2px solid #fd676a;
-    background-color: white;
-    padding:10px;
-    border-radius: 10px;
-    width: 200px;
-    font-weight: 600;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-}
-
-#newmessage:hover, #newgroup:hover {
-    background-color: #fd676a;
-    color: white;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    margin-bottom: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 .messageHeader {
@@ -44,16 +29,14 @@
 
 .messageHeader a {
     text-decoration: none;
-    color: rgb(183, 183, 183);
+    color: #fd676a;
 }
 
 .messageHeader a:visited {
-    color: rgb(183, 183, 183);
-}
-
-.messageHeader a:hover {
     color: #fd676a;
-    text-decoration: none;
-    font-weight: 600;
 }
 
+
+.messageFooter a {
+    font-size: 0.6em;
+}

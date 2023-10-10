@@ -21,9 +21,6 @@ if ($mysqli->connect_errno) {
             echo "<li><a href='groupPage.php?id=" . $groupeID['groupid'] . "'>" . $groupe['name'] . "</a></li>";
         }
     }
-
-
-
 }
 
 ?>

@@ -1,6 +1,6 @@
 <?php 
 include('./sessionprolong.php');
-include("messageFonctions.php");
+include("./messageFonctions.php");
 
 $mysqli = new mysqli("localhost", "root", "root", "voisinous");
     //verification
@@ -9,13 +9,36 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
         exit();
     }
     else{
-        $groupId = $_GET['id']; // recupéré id du groupe grace a l'url
-        $querySearchGroup = "SELECT * "
-        . "FROM groupes "
-        . "WHERE "
-        . "id = '" . $groupId . "'";
+        // $groupId = $_GET['id']; // recupéré id du groupe grace a l'url
+        // $querySearchGroup = "SELECT * "
+        // . "FROM groupes "
+        // . "WHERE "
+        // . "id = '" . $groupId . "'";
+        // $searchGroup = $mysqli->query($querySearchGroup);
+        // $resultGroup = $searchGroup->fetch_assoc();
+
+        $groupId = $_GET['id']; // Récupération de l'ID du groupe depuis l'URL
+
+        $querySearchGroup = "SELECT *, DATE_FORMAT(date, '%d-%m-%Y') AS formatted_date "
+            . "FROM groupes "
+            . "WHERE id = '" . $groupId . "'";
+
         $searchGroup = $mysqli->query($querySearchGroup);
-        $resultGroup = $searchGroup->fetch_assoc();
+
+        if ($searchGroup) {
+            $resultGroup = $searchGroup->fetch_assoc();
+
+            if ($resultGroup) {
+                // Accédez à la date formatée
+                $formattedDate = $resultGroup['formatted_date'];
+
+            } else {
+                echo "Aucun groupe trouvé avec cet ID.";
+            }
+        } else {
+            echo "Erreur lors de l'exécution de la requête : " . $mysqli->error;
+        }
+
         
         $queryGetUserIdForGroupe = "SELECT * "
         . "FROM groupemembers "
@@ -57,29 +80,26 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Voisinous</title>
+    <title><?php echo htmlspecialchars($resultGroup['name']); ?></title>
+
+    <link rel="icon" type="image/png" href="logo.png" />
+
     <link rel="stylesheet" href="./htmlcss/stylesheets/_body.css">
     <link rel="stylesheet" href="./htmlcss/stylesheets/groupPage.css">
     <link rel="stylesheet" href="./htmlcss/stylesheets/message.css">
 </head>
 
 <body>
-    <?php include("htmlcss/navbar.php") ?>
-       
+    <?php include("htmlcss/navbar.php"); ?>
+
     <main>
     <section class="left" id="groupFeed">
-    <?php 
+            <?php 
         if(isUserMember($mysqli)==true) {
-            if (isset($_POST['commentSubmit'])) {
-                setComments($mysqli);
-               // getAllCommentsByGroup($mysqli, $groupId); Affiche uniquement les messages que l'utilisateur connecté a posté.
-            }
-            echo ("<form action='".getComments($mysqli)."' method='POST'>
-                    <textarea name='content' style='color:grey;' placeholder='Ecrivez quelque chose ...'></textarea>
-                    <button class='greyBtn' id='newmessage' type='submit' value='envoyer' name='commentSubmit'>NOUVEAU MESSAGE</button>
-                    </form>");
-                     
-        } else {
+            echo "<button class='greyBtn' id='newmessage'>NOUVEAU MESSAGE</button>";
+            getAllCommentsByGroup($mysqli, $groupId);
+        }
+        else{
             echo ("
             <a href='./joinGroupe.php?id=" . $groupId . "'><button class='redBtn' id='joingroup'>Rejoindre le groupe</button></a>
            ");
@@ -89,10 +109,15 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
 
         <aside class="right" id="groupProfile">
             <article id="groupHeader">
-                <?php echo "<img src='./uploads/users/" . $resultGroup['photo'] . "'/>"; ?>
+                <?php 
+                    if ($resultGroup['photo'] != 0) {
+                        echo "<img src='./uploads/users/" . $resultGroup['photo'] . "'/>"; 
+                    }?>
+                
                 <div>
                     <div>
                         <h3> <?php echo $resultGroup['name']?> </h3><br />
+                        <p><?php echo "créé le " . $formattedDate; ?></p><br />
                         <span><?php echo $resultGroup['localisation']?></span>
                     </div>
                 </div>
@@ -107,7 +132,6 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
                 
             </article>
         </aside>
-        ?>
 
     </main>
 
