@@ -1,7 +1,7 @@
 <?php
 include("./sessionprolong.php");
 $userid = $_SESSION['id'];
-$groupid = '16'; // A remplacer
+$groupid = $_GET['id'];
 
 
 $mysqli = new mysqli("localhost", "root", "root", "voisinous");
@@ -15,12 +15,10 @@ if ($mysqli->connect_errno) {
         . "'" . $groupid . "');";
 
     $joinGroupe = $mysqli->query($queryJoinGroupe);
-    echo "<pre>" . print_r($joinGroupe) . "</pre>";
 
     if ($joinGroupe != '') {
-        echo 'Vous avez rejoint le groupe';
-    } else {
-        echo 'aa';
+        header("Location: ./groupPage.php?id=" . $_GET['id'] );
+        exit();
     }
 }
 

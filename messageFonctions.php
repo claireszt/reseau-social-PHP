@@ -66,8 +66,37 @@ function getAllCommentsByUser($mysqli) {
     "SELECT * FROM Posts
     WHERE userid = " . $_SESSION['id'] . ";";
     $queryAllMessages = $mysqli->query($querygetAllMessages);
+
+    $allMessages = array();
     foreach($queryAllMessages as $message){
-        print_r($message);
+        array_push($allMessages,$message);
+    }
+    $allMessages = array_reverse($allMessages);
+
+    foreach($allMessages as $message){
+
+        $queryGroupName = 
+        "SELECT name FROM groupes
+        WHERE id = " . $message['groupeid'] . ";";
+        $getGroupName = $mysqli->query($queryGroupName);
+        $groupe = $getGroupName->fetch_array();
+
+        $queryUserPseudo = 
+        "SELECT pseudo FROM users
+        WHERE id = " . $message['userid'] . ";";
+        $getUserPseudo = $mysqli->query($queryUserPseudo);
+        $user = $getUserPseudo->fetch_array();
+
+        echo "<article class='message'>
+                    <div class='messageHeader'>
+                        <p>" . $message['date'] . "</p>
+                        <p>par " . $user['pseudo'] . ", <a href='./groupPage.php?id=". $message['groupeid'] . "'>" . $groupe['name'] . "</a></p>
+                    </div>
+                    <p>" . $message['content'] . "</p>
+                    <div class='messageFooter'>
+                        <p>♥ 256</p>
+                    </div>
+                </article>";
     }
 }
 
