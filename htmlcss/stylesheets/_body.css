@@ -8,6 +8,7 @@
 @import url(message.css);
 @import url(searchGroup.css);
 @import url(buttons.css);
+@import url(profilPage.css);
 
 html {
     font-family:'Poppins', sans-serif;

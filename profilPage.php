@@ -7,7 +7,7 @@ if ($mysqli->connect_errno) {
     echo ("Échec de la connexion : " . $mysqli->connect_error);
     exit();
 } else {
-        $querySearchUser = "SELECT * "
+        $querySearchUser = "SELECT *, DATE_FORMAT(date, '%d-%m-%Y') AS formatted_date "
         . "FROM users "
         . "WHERE "
         . "id = '" . $userid . "'";
@@ -16,13 +16,11 @@ if ($mysqli->connect_errno) {
     if(!empty ($_POST)){
     $pseudo = $resultUser["pseudo"];
     $mail = $resultUser["mail"];
-    $mdphash = $_POST["mdp"]== null ? $resultUser["mdp"] : password_hash($_POST["mdp"], PASSWORD_DEFAULT);
-    $localisation = $_POST["localisation"]== null ? $resultUser["localisation"] : $_POST["localisation"];
+    $mdphash = $_POST["mdp"]== $resultUser["mail"] ? $resultUser["mdp"] : password_hash($_POST["mdp"], PASSWORD_DEFAULT);
+    $localisation = $_POST["localisation"]== $resultUser["localisation"] ? $resultUser["localisation"] : $_POST["localisation"];
     $latitude = $_POST['lat'] != 0 ? $_POST['lat'] : $resultUser['latitude'];
     $longitude = $_POST['lon'] != 0 ? $_POST['lon'] : $resultUser['longitude'];
     $photo = $_FILES['img']['name']==null ? $resultUser['photo'] : $_FILES['img']['name'];
-    print_r($latitude);
-    print_r($longitude);
 
     // $queryCreateUser = "INSERT INTO Users (pseudo, mail, mdp, localisation, latitude, longitude, date, photo) "
     //     . "VALUES ("
@@ -45,6 +43,8 @@ if ($mysqli->connect_errno) {
 
     move_uploaded_file($_FILES['img']['tmp_name'], 'uploads/users/' . basename($_FILES['img']['name']));
 
+    header('Location: ./profilPage.php');
+    exit();
 }
 }
  
@@ -80,9 +80,11 @@ if ($mysqli->connect_errno) {
     crossorigin=""></script>
     
 
-    <title>Voisinous</title>
+    <title>Mon profil</title>
 
-    <link rel="stylesheet" href="./htmlcss/stylesheets/profilPage.css">
+    <link rel="stylesheet" href="./htmlcss/stylesheets/_body.css">
+    <link rel="icon" type="image/png" href="logo.png" />
+
 
 </head>
 
@@ -90,25 +92,47 @@ if ($mysqli->connect_errno) {
     <?php include("./htmlcss/navbar.php") ?> 
 
     <main>
-        <section id="UserInfo">
+        <section class='center' id="userInfo">
             <h1><?php echo $resultUser['pseudo']?></h1>
-       <ul>
+            <p>Compte créé le <?php echo $resultUser['formatted_date'] ?></p>
+            <a href="./logOut.php">Se déconnecter</a>
+
+        <form id="formUserProfile" action="/profilPage.php" method="post" enctype="multipart/form-data">
+        <div>
+            <label for="email">Adresse email</label>
+            <input type="email" id="email" name="email" class="readonly" value="<?php echo $resultUser['mail']; ?>" readonly>
+        </div>
+
+        <div>
+            <label for="localisation">Localisation</label>
+            <input type="number" id="localisation" name="localisation" value="<?php echo $resultUser['localisation']; ?>">
+        </div>
+
+        <div>
+            <label for="mdp">Mot de passe</label>
+            <input type="password" id="mdp" name="mdp" value="<?php echo $resultUser['mdp']; ?>">
+        </div>
+
+        <div>
+            <label for="img">Photo de profil</label>
+            <img src='./uploads/users/<?php echo $resultUser['photo']; ?>' style="width:20%">
+            <input type="file" id="img" name="img">
+        </div>
+
+        <input class="greyBtn" id="confirmModif" type="submit" value="Valider les modifications" />
+                <?php include("./localisation.php") ?> 
+        </form>
+
+       <!-- <ul>
         <?php
-         echo "<li> pseudo :" . $resultUser['pseudo'] ."</li>";
-         echo "<li> @mail:" . $resultUser['mail'] ."</li>";
-         echo "<li> localisation:" . $resultUser['localisation'] ."</li>";
-         echo "<li> date de création du compte:" . $resultUser['date'] ."</li>";
+        //  echo "<li> adresse email :" . $resultUser['mail'] ."</li>";
+        //  echo "<li> localisation:" . $resultUser['localisation'] ."</li>";
+        //  echo "<img src='./uploads/users/".$resultUser['photo']."'/>";
          ?>
-        </ul>
-        </section>
-        <section id="UserPhoto">
-        <?php
-        echo "<img src='./uploads/users/".$resultUser['photo']."'/>"
-        ?>
-       
+        </ul> -->
         </section>
 
-        <section id="createForm">
+        <!-- <section id="modifyForm">
             <h1>Modifier Profil de <?php echo $resultUser['pseudo']?></h1>
             <form action="/profilPage.php" method="post" enctype="multipart/form-data">
                 <div>
@@ -124,8 +148,8 @@ if ($mysqli->connect_errno) {
                     <input type="file" name="img" placeholder="votre photo de profil">
                 </div>
                 <input type="submit" value="VALIDER" />
-                <?php include("./localisation.php") ?> 
-            </form>
+                
+            </form> -->
 </section>
             
          

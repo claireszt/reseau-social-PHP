@@ -26,7 +26,6 @@ session_destroy();
             $searchUser = $mysqli->query($querySearchUser);
             //rajouter check et si la query ne sort pas de ligne renvoyé "le compte spécifié est introuvable
             $result = $searchUser->fetch_assoc();
-            print_r($result);
             if($result != null){
             if(password_verify ($mdp ,$result['mdp'])){
                 session_start();
