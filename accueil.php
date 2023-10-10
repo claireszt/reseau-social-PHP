@@ -22,9 +22,9 @@ getAllCommentsByUser($mysqli);
     <?php include("./htmlcss/navbar.php") ?> 
 
     <main>
-        <section id="feed">
+        <section class="left" id="feed">
             <h1>Derniers messages</h1>
-            <button id="newmessage">Nouveau message</button>
+            <button class="redBtn" id="newmessage">Nouveau message</button>
             <article class="message">
                     <div class="messageHeader">
                         <p>4 octobre 2023</p>
@@ -36,9 +36,9 @@ getAllCommentsByUser($mysqli);
                     </div>
                 </article>
         </section>
-        <aside id="myGroups">
+        <aside class="right" id="myGroups">
             <h1>Mes groupes</h1>
-            <a href="newGroup.php"><button id="newgroup">Créer un groupe</button></a>
+            <a href="newGroup.php"><button class="greyBtn" id="newgroup">Créer un groupe</button></a>
             <ul>
                 <?php include("./displayGroups.php") ?>
             </ul>

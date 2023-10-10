@@ -32,21 +32,6 @@ nav {
     height: 80%;
 }
 
-.nav-left button {
-    border: none;
-    padding:10px;
-    border-radius: 10px;
-    width: 120px;
-    font-weight: 400;
-}
-
-.nav-left button:hover {
-    border: none;
-    background-color: #fd676a;
-    color: white;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-}
-
 .nav-right {
     width: 100%;
     height: 100%;
@@ -62,17 +47,4 @@ nav {
     height: 60%;
 }
 
-.nav-right button {
-    border: 2px solid #fd676a;
-    background-color: white;
-    padding:10px;
-    border-radius: 10px;
-    width: 120px;
-    font-weight: 600;
-}
 
-.nav-right button:hover {
-    background-color: #fd676a;
-    color: white;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-}

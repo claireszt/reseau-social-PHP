@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>S'inscrire</title>
+
+    <link rel="icon" type="image/png" href="logo.png" />
 
     <link rel="stylesheet" href="./htmlcss/stylesheets/_body.css">
 
@@ -14,7 +16,7 @@
     <?php include("htmlcss/navbar.php") ?>
 
     <main>
-        <section id="afterRegister">
+        <section class="center" id="afterRegister">
             <?php
             $mysqli = new mysqli("localhost", "root", "root", "voisinous");
             //verification

@@ -53,8 +53,10 @@ if (!empty($_POST)) {
 <html lang="fr">
 
 <head>
-    <title>Recherche de groupes</title>
+    <title>Recherche</title>
     <link rel="stylesheet" href="./htmlcss/stylesheets/_body.css">
+
+    <link rel="icon" type="image/png" href="logo.png" />
 
 </head>
 

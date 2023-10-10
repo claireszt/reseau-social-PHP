@@ -32,6 +32,8 @@
 
     <link rel="stylesheet" href="./htmlcss/stylesheets/_body.css">
 
+    <link rel="icon" type="image/png" href="logo.png" />
+
 </head>
 
 <body>
