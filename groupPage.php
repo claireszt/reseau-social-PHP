@@ -58,22 +58,37 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Voisinous</title>
-
     <link rel="stylesheet" href="./htmlcss/stylesheets/_body.css">
     <link rel="stylesheet" href="./htmlcss/stylesheets/groupPage.css">
     <link rel="stylesheet" href="./htmlcss/stylesheets/message.css">
-
-
 </head>
 
 <body>
     <?php include("htmlcss/navbar.php") ?>
-
+       
     <main>
-        <aside id="groupProfile">
+    <section class="left" id="groupFeed">
+    <?php 
+        if(isUserMember($mysqli)==true) {
+            if (isset($_POST['commentSubmit'])) {
+                setComments($mysqli);
+            }
+            echo ("<form action='".getComments($mysqli)."' method='POST'>
+                    <textarea name='content' style='color:grey;' placeholder='Ecrivez quelque chose ...'></textarea>
+                    <button class='greyBtn' id='newmessage' type='submit' value='envoyer' name='commentSubmit'>NOUVEAU MESSAGE</button>
+                    </form>");
+                     
+        } else {
+            echo ("
+            <a href='./joinGroupe.php?id=" . $groupId . "'><button class='redBtn' id='joingroup'>Rejoindre le groupe</button></a>
+           ");
+        }
+        ?>
+        </section>
+
+        <aside class="right" id="groupProfile">
             <article id="groupHeader">
-                <img
-                    src="./uploads/groups/<?php echo $resultGroup['photo']?>" />
+                <?php echo "<img src='./uploads/users/" . $resultGroup['photo'] . "'/>"; ?>
                 <div>
                     <div>
                         <h3> <?php echo $resultGroup['name']?> </h3><br />
@@ -88,42 +103,9 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
                  ?>
                  </ul> 
                  
-                 
+                
             </article>
         </aside>
-        <?php 
-        if(isUserMember($mysqli)==true) {
-            echo("<section id='groupFeed'>
-            <form action='".setComments($mysqli)."' method='POST'>
-                    <textarea name='content' style='color:grey;' placeholder='Ecrivez quelque chose ...'></textarea>
-                    <button id='newmessage' type=submit value='envoyer' name='commentSubmit'>Nouveau message</button>
-                    <input type='hidden' name='date' value='".date('Y-m-d H:i:s')."'>
-                </form>
-
-                <form action='".getComments($mysqli)."' method='POST'>
-                </form>
-
-            <article class='message'>
-                <div class='messageHeader'>
-                    <p>5 octobre 2023</p>
-                    <p>par Claire</p>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dignissim dignissim est ut elementum. Sed lacinia purus in mi tempor posuere. Proin eget lacinia turpis, a vulputate enim. Curabitur semper suscipit diam, et tincidunt ligula vestibulum sed. Curabitur ac ligula at libero scelerisque tristique id non odio. Phasellus vel ante quam. Sed semper eu orci laoreet interdum. Nullam vel est id lectus dignissim luctus congue eget tellus. Sed suscipit leo ut efficitur dictum. Maecenas et rutrum sapien. Etiam mollis venenatis odio, ut lobortis dui commodo ac. Maecenas et venenatis orci, eget viverra risus. Integer viverra hendrerit augue at accumsan.</p>
-                <div class='messageFooter'>
-                    <p>♥ 13</p>
-                </div>
-            </article>
-        </section>");
-            
-        } else {
-            echo ("<section id='groupFeed'>
-            <a href='./joinGroupe.php?id=" . $groupId . "'><button id='newmessage'>Rejoindre le groupe</button></a>
-            </section>");
-        }
-        ?>
-        
-        <?php 
-           
         ?>
 
     </main>

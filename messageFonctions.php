@@ -31,6 +31,7 @@ function setComments($mysqli) {
 
         $createmessage = $mysqli->query($queryInsertMessage);
             if ($createmessage === TRUE) {
+                echo "Message envoyé";
             } else {
                 echo "Erreur lors de l'insertion : " . $mysqli->error;
             }
@@ -47,22 +48,29 @@ function setComments($mysqli) {
 }
 
 
-// Fonction qui permet d'afficher tous les pseudos, messages et groupe ID.
+// Fonction qui permet d'afficher les messages instantanées.
 function getComments($mysqli) {
-    // Sélectionnez tous les commentaires de tous les utilisateurs
+    // Sélectionne tous les commentaires de tous les utilisateurs
     $selectComments = "SELECT p.content, p.date, u.pseudo 
                        FROM Posts p
                        INNER JOIN Users u ON p.userid = u.id";
     $queryGetComments = $mysqli->query($selectComments);
 
-    // Vérifiez si la requête a réussi
-    if ($queryGetComments) {
-        // Parcourez les résultats et affichez-les
-        while ($comments = $queryGetComments->fetch_assoc()) {
+    // Vérifie si la requête a réussi
+   
+
+        $allComments = array();
+        foreach($queryGetComments as $comments){
+            array_push($allComments,$comments);
+        }
+        $allComments = array_reverse($allComments);
+        if ($queryGetComments) {
+        foreach($allComments as $comments) {
+        // Parcoure les résultats et les affiche 
             echo "<section id='groupFeed'>
                     <article class='message'>
                         <div class='messageHeader'>
-                            <p>" . $comments['date'] . "</p>
+                            <p>" . $comments['date'] . "</p> 
                             <p>" . $comments['pseudo'] . "</p>
                         </div>
                         <br><p>" . $comments["content"] . "</p>
