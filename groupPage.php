@@ -9,13 +9,36 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
         exit();
     }
     else{
-        $groupId = $_GET['id']; // recupéré id du groupe grace a l'url
-        $querySearchGroup = "SELECT * "
-        . "FROM groupes "
-        . "WHERE "
-        . "id = '" . $groupId . "'";
+        // $groupId = $_GET['id']; // recupéré id du groupe grace a l'url
+        // $querySearchGroup = "SELECT * "
+        // . "FROM groupes "
+        // . "WHERE "
+        // . "id = '" . $groupId . "'";
+        // $searchGroup = $mysqli->query($querySearchGroup);
+        // $resultGroup = $searchGroup->fetch_assoc();
+
+        $groupId = $_GET['id']; // Récupération de l'ID du groupe depuis l'URL
+
+        $querySearchGroup = "SELECT *, DATE_FORMAT(date, '%e %M %Y') AS formatted_date "
+            . "FROM groupes "
+            . "WHERE id = '" . $groupId . "'";
+
         $searchGroup = $mysqli->query($querySearchGroup);
-        $resultGroup = $searchGroup->fetch_assoc();
+
+        if ($searchGroup) {
+            $resultGroup = $searchGroup->fetch_assoc();
+
+            if ($resultGroup) {
+                // Accédez à la date formatée
+                $formattedDate = $resultGroup['formatted_date'];
+
+            } else {
+                echo "Aucun groupe trouvé avec cet ID.";
+            }
+        } else {
+            echo "Erreur lors de l'exécution de la requête : " . $mysqli->error;
+        }
+
         
         $queryGetUserIdForGroupe = "SELECT * "
         . "FROM groupemembers "
@@ -85,10 +108,15 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
 
         <aside class="right" id="groupProfile">
             <article id="groupHeader">
-                <?php echo "<img src='./uploads/users/" . $resultGroup['photo'] . "'/>"; ?>
+                <?php 
+                    if ($resultGroup['photo'] != 0) {
+                        echo "<img src='./uploads/users/" . $resultGroup['photo'] . "'/>"; 
+                    }?>
+                
                 <div>
                     <div>
                         <h3> <?php echo $resultGroup['name']?> </h3><br />
+                        <p><?php echo "créé le " . $formattedDate; ?></p><br />
                         <span><?php echo $resultGroup['localisation']?></span>
                     </div>
                 </div>
@@ -103,7 +131,6 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
                 
             </article>
         </aside>
-        
 
     </main>
 

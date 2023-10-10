@@ -13,7 +13,9 @@
 <body>
     <?php 
     include("./sessionprolong.php");
-    include("htmlcss/navbar.php");?>
+    include("htmlcss/navbar.php");
+    include("./joinGroupeFunction.php");?>
+
 
     <main>
     <section class="center" id="createGroupForm">
@@ -45,10 +47,31 @@
 
             move_uploaded_file($_FILES['img']['tmp_name'], 'uploads/groups/' . basename($_FILES['img']['name']));
 
+
+            // récupérer l'id du groupe créé
+            $queryIdGroup = "SELECT id FROM groupes WHERE name = '" . $name . "'";
+            $resultIdGroup = $mysqli->query($queryIdGroup);
+
+            if ($resultIdGroup) {
+                $row = $resultIdGroup->fetch_assoc(); 
+                if ($row) {
+                    $idGroup = $row['id'];
+                    echo $idGroup;
+                } else {
+                    echo "Aucun groupe trouvé avec ce nom.";
+                }
+            } else {
+                echo "Erreur lors de l'exécution de la requête : " . $mysqli->error;
+            }
+
+            $resultIdGroup->free(); 
+
+            joinGroup($mysqli, $idGroup);
+
             if ($mysqli->error) {
                 print_r($mysqli->error);
             } else {
-                echo "<section class='center'><h2>Groupe créé !</h2>" . "<a href='.groupPage.php?id=>'<button>Voir le groupe</button></a></section>";
+                echo "<section class='center'><h2>Groupe créé !</h2>" . "<a href='.groupPage.php?id=" . $idGroup . "'><button>Voir le groupe</button></a></section>";
             }
             ;
         }

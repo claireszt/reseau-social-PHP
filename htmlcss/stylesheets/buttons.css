@@ -13,7 +13,7 @@
     border: none;
     background-color: #fd676a;
     color: white;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
 }
 
 .redBtn {
@@ -30,5 +30,5 @@
 .redBtn:hover {
     background-color: #fd676a;
     color: white;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
 }

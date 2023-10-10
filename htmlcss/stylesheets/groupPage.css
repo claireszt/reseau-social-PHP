@@ -18,7 +18,6 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 10px;
 }
 
 #groupHeader div div {
@@ -48,6 +47,14 @@
     padding-left: 10px;
     padding-right: 10px;
 }
+
+#groupHeader div p {
+    font-size: 13px;
+    padding: 0;
+    margin: 0;
+
+}
+
 
 #groupHeader div span {
     background-color: #fd676a;
