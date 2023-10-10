@@ -1,5 +1,7 @@
 <?php 
 include('./sessionprolong.php');
+include("./messageFonctions.php");
+
 $mysqli = new mysqli("localhost", "root", "root", "voisinous");
     //verification
     if ($mysqli->connect_errno){
@@ -55,7 +57,7 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Voisinous</title>
+    <title><?php echo htmlspecialchars($resultGroup['name']); ?></title>
 
     <link rel="icon" type="image/png" href="logo.png" />
 
@@ -64,22 +66,21 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
 </head>
 
 <body>
-    <?php include("./sessionprolong.php"); ?>
     <?php include("htmlcss/navbar.php"); ?>
 
     <main>
     <section class="left" id="groupFeed">
-            <button class="redBtn" id="newmessage">Nouveau message</button>
-            <article class="message">
-                <div class="messageHeader">
-                    <p>5 octobre 2023</p>
-                    <p>par Claire</p>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dignissim dignissim est ut elementum. Sed lacinia purus in mi tempor posuere. Proin eget lacinia turpis, a vulputate enim. Curabitur semper suscipit diam, et tincidunt ligula vestibulum sed. Curabitur ac ligula at libero scelerisque tristique id non odio. Phasellus vel ante quam. Sed semper eu orci laoreet interdum. Nullam vel est id lectus dignissim luctus congue eget tellus. Sed suscipit leo ut efficitur dictum. Maecenas et rutrum sapien. Etiam mollis venenatis odio, ut lobortis dui commodo ac. Maecenas et venenatis orci, eget viverra risus. Integer viverra hendrerit augue at accumsan.</p>
-                <div class="messageFooter">
-                    <p>♥ 13</p>
-                </div>
-            </article>
+            <?php 
+        if(isUserMember($mysqli)==true) {
+            echo "<button class='greyBtn' id='newmessage'>NOUVEAU MESSAGE</button>";
+            getAllCommentsByGroup($mysqli, $groupId);
+        }
+        else{
+            echo ("
+            <a href='./joinGroupe.php?id=" . $groupId . "'><button class='redBtn' id='joingroup'>Rejoindre le groupe</button></a>
+           ");
+        }
+        ?>
         </section>
 
         <aside class="right" id="groupProfile">
@@ -102,28 +103,7 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
                 
             </article>
         </aside>
-        <?php 
-        if(isUserMember($mysqli)==true) {
-            echo("<section id='groupFeed'>
-            <button id='newmessage'>Nouveau message</button>
-            <article class='message'>
-                <div class='messageHeader'>
-                    <p>5 octobre 2023</p>
-                    <p>par Claire</p>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dignissim dignissim est ut elementum. Sed lacinia purus in mi tempor posuere. Proin eget lacinia turpis, a vulputate enim. Curabitur semper suscipit diam, et tincidunt ligula vestibulum sed. Curabitur ac ligula at libero scelerisque tristique id non odio. Phasellus vel ante quam. Sed semper eu orci laoreet interdum. Nullam vel est id lectus dignissim luctus congue eget tellus. Sed suscipit leo ut efficitur dictum. Maecenas et rutrum sapien. Etiam mollis venenatis odio, ut lobortis dui commodo ac. Maecenas et venenatis orci, eget viverra risus. Integer viverra hendrerit augue at accumsan.</p>
-                <div class='messageFooter'>
-                    <p>♥ 13</p>
-                </div>
-            </article>
-        </section>");
-        }
-        else{
-            echo ("<section id='groupFeed'>
-            <a href='./joinGroupe.php?id=" . $groupId . "'><button id='newmessage'>Rejoindre le groupe</button></a>
-            </section>");
-        }
-        ?>
+        
 
     </main>
 

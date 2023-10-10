@@ -6,6 +6,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin-bottom: 10px;
 }
 
 .messageHeader {
@@ -34,3 +35,7 @@
     color: #fd676a;
 }
 
+
+.messageFooter a {
+    font-size: 0.6em;
+}

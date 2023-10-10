@@ -23,7 +23,6 @@ include("./messageFonctions.php");
     <main>
         <section class="left" id="feed">
             <h1>Derniers messages</h1>
-            <button id="newmessage">Nouveau message</button>
             <?php getAllCommentsByUser($mysqli); ?>
         </section>
         <aside class="right" id="myGroups">

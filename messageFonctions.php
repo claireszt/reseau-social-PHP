@@ -90,11 +90,50 @@ function getAllCommentsByUser($mysqli) {
         echo "<article class='message'>
                     <div class='messageHeader'>
                         <p>" . $message['date'] . "</p>
-                        <p>par " . $user['pseudo'] . ", <a href='./groupPage.php?id=". $message['groupeid'] . "'>" . $groupe['name'] . "</a></p>
+                        <p>par " . $user['pseudo'] . " (<a href='./groupPage.php?id=". $message['groupeid'] . "'>" . $groupe['name'] . "</a>)</p>
                     </div>
                     <p>" . $message['content'] . "</p>
                     <div class='messageFooter'>
-                        <p>♥ 256</p>
+                        <a href=''>♥ 256</a>
+                    </div>
+                </article>";
+    }
+}
+
+function getAllCommentsByGroup($mysqli, $groupeid) {
+    $querygetAllMessagesGroup = 
+    "SELECT * FROM Posts
+    WHERE userid = " . $_SESSION['id'] . " AND groupeid = " . $groupeid .";";
+    $queryMessagesGroup = $mysqli->query($querygetAllMessagesGroup);
+
+    $allMessagesGroup = array();
+    foreach($queryMessagesGroup as $message){
+        array_push($allMessagesGroup,$message);
+    }
+    $allMessagesGroup = array_reverse($allMessagesGroup);
+
+    foreach($allMessagesGroup as $message){
+
+        $queryGroupName = 
+        "SELECT name FROM groupes
+        WHERE id = " . $message['groupeid'] . ";";
+        $getGroupName = $mysqli->query($queryGroupName);
+        $groupe = $getGroupName->fetch_array();
+
+        $queryUserPseudo = 
+        "SELECT pseudo FROM users
+        WHERE id = " . $message['userid'] . ";";
+        $getUserPseudo = $mysqli->query($queryUserPseudo);
+        $user = $getUserPseudo->fetch_array();
+
+        echo "<article class='message'>
+                    <div class='messageHeader'>
+                        <p>" . $message['date'] . "</p>
+                        <p>par " . $user['pseudo'] . "</p>
+                    </div>
+                    <p>" . $message['content'] . "</p>
+                    <div class='messageFooter'>
+                        <a href=''>♥ 256</a>
                     </div>
                 </article>";
     }
