@@ -120,7 +120,7 @@ if ($mysqli->connect_errno) {
 
         <section id="createForm">
             <h1>Modifier Profil de <?php echo $resultGroup['name']?></h1>
-            <form action="./adminGroupe.php/?id=<?php echo "$groupeId"?>" method="post" enctype="multipart/form-data">
+            <form action="./adminGroupe.php?id=<?php echo "$groupeId"?>" method="post" enctype="multipart/form-data">
                 <div>
                     <input type="text" name="name" placeholder="nom du groupe" />
                 </div>
