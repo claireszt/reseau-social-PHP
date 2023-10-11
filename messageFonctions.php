@@ -32,11 +32,8 @@ function setLikeListener($postid)
             if (this.readyState == 4 && this.status == 200) {
                 console.log('like envoyé')
             }
-            else {
-                console.log('nope')
-            }
         };
-        xmlhttp.open('GET', 'sendLike.php?id=' + postid , true);
+        xmlhttp.open('POST', 'sendLike.php?id=' + postid , true);
         xmlhttp.send();
         
     })
@@ -61,7 +58,7 @@ function displayMessage($message, $mysqli)
     echo "<article class='message' postid='" . $message['id'] . "'>
     <div class='messageHeader'>
     <p> le " . $date . " à " . $heure . "</p>
-        <p>par " . $user['pseudo'] . "</p>
+        <p>par " . $user['pseudo'] . " (<a href='./groupPage.php?id=" . $message['groupeid'] . "'>" . $groupe['name'] . "</a>)</p>
     </div>
     <p>" . $message['content'] . "</p>
     <div class='messageFooter'>
