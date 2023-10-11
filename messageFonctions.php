@@ -16,8 +16,7 @@ function getLikes($postid, $mysqli)
     FROM likes
     WHERE postid = " . $postid . ";";
     $resultLikes = $mysqli->query($queryLikes);
-    return $resultLikes->num_rows;
-
+    return $resultLikes;
 }
 function setLikeListener($postid)
 {
@@ -35,6 +34,8 @@ function setLikeListener($postid)
         };
         xmlhttp.open('GET', 'sendLike.php?id=' + $postid , true);
         xmlhttp.send();
+
+        location.reload()
         
     })
     </script>";
@@ -65,7 +66,9 @@ function displayMessage($message, $mysqli)
         <a href='' id='" . $message['id'] . "'>♥ ". $message['likes'] . "</a>
     </div>
 </article>";
-    setLikeListener($message['id']);
+    if(!$message['fromUser']){
+        setLikeListener($message['id']);
+    }
 }
 
 
@@ -201,7 +204,13 @@ function getAllCommentsByGroup($mysqli, $groupeid)
     $allMessagesGroup = array_reverse($allMessagesGroup);
 
     foreach ($allMessagesGroup as $message) {
-        $message['likes'] = getLikes($message['id'],$mysqli);
+        $likes = getLikes($message['id'],$mysqli);
+        $message['likes'] = $likes->num_rows;
+        foreach($likes as $like) {
+            if($like['userid']==$_SESSION['id']){
+                $message['fromUser'] = true;
+            }
+        }
         displayMessage($message,$mysqli);
     }
 
