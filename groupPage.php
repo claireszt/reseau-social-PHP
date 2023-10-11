@@ -120,6 +120,11 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
         <aside class="right" id="groupProfile">
             <article id="groupHeader">
                 <?php 
+                    if ($_SESSION['id'] == $resultGroup['adminid']){
+                        echo "<a href='adminGroupe.php?id=" . $resultGroup['id'] . "'><button class='greyBtn' id='adminGroup'>modifié un groupe</button></a>" ;
+                    
+                     }
+
                     if ($resultGroup['photo'] != 0) {
                         echo "<img src='./uploads/users/" . $resultGroup['photo'] . "'/>"; 
                     }?>
