@@ -43,7 +43,7 @@ if ($mysqli->connect_errno) {
 
     move_uploaded_file($_FILES['img']['tmp_name'], 'uploads/users/' . basename($_FILES['img']['name']));
 
-    header('Location: ./profilPage.php');
+    header('Location: /profilPage.php');
     exit();
 }
 }
