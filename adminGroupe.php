@@ -44,7 +44,7 @@ if ($mysqli->connect_errno) {
 
     $modifyGroup = $querymodifyGroup->execute();
 
-    move_uploaded_file($_FILES['img']['tmp_name'], 'uploads/groups/' . basename($_FILES['img']['name']));
+    move_uploaded_file($_FILES['img']['tmp_name'], 'uploads/users/' . basename($_FILES['img']['name']));
     header("Location: ./adminGroupe.php?id=$groupeId");
     exit();
 };
