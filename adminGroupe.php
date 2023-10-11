@@ -101,7 +101,7 @@ if ($mysqli->connect_errno) {
     <?php include("./htmlcss/navbar.php") ?> 
 
     <main>
-        <section id="UserInfo">
+        <section class='center' id="groupInfo">
             <h1><?php echo $resultGroup['name']?></h1>
        <ul>
         <?php
@@ -115,10 +115,6 @@ if ($mysqli->connect_errno) {
         <?php
         echo "<img src='./uploads/users/".$resultGroup['photo']."'/>"
         ?>
-       
-        </section>
-
-        <section id="createForm">
             <h1>Modifier Profil de <?php echo $resultGroup['name']?></h1>
             <form action="./adminGroupe.php?id=<?php echo "$groupeId"?>" method="post" enctype="multipart/form-data">
                 <div>
