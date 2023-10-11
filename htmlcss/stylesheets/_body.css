@@ -10,6 +10,7 @@
 @import url(buttons.css);
 @import url(profilPage.css);
 @import url(adminGroupePage.css);
+@import url(welcome.css);
 
 html {
     font-family:'Poppins', sans-serif;

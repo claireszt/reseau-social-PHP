@@ -123,14 +123,15 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
                     if ($_SESSION['id'] == $resultGroup['adminid']){
                         echo "<a href='adminGroupe.php?id=" . $resultGroup['id'] . "'><button class='greyBtn' id='adminGroup'>modifier le groupe</button></a>" ;
                     
-                     }
-
-                    if ($resultGroup['photo'] != 0) {
-                        echo "<img src='./uploads/users/" . $resultGroup['photo'] . "'/>"; 
-                    }?>
+                     }?>
                 
                 <div>
                     <div>
+                        <?php
+                        if ($resultGroup['photo'] != 0) {
+                            echo "<img src='./uploads/groups/" . $resultGroup['photo'] . "'/>"; 
+                        }
+                        ?>
                         <h3> <?php echo $resultGroup['name']?> </h3><br />
                         <p><?php echo "créé le " . $formattedDate; ?></p><br />
                         <span><?php echo $resultGroup['localisation']?></span>

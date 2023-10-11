@@ -62,7 +62,7 @@ input[type=submit]:hover {
 #map {
     width: 500px;
     height: 500px;
-    border: 2px solid red;
+    border: 2px solid #fd676a;
 }
 
 .geocoder-control-suggestion{
