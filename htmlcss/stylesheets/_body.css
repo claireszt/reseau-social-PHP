@@ -9,6 +9,7 @@
 @import url(searchGroup.css);
 @import url(buttons.css);
 @import url(profilPage.css);
+@import url(adminGroupePage.css);
 
 html {
     font-family:'Poppins', sans-serif;
@@ -43,8 +44,10 @@ a:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     padding-top: 20px;
+    padding-bottom: 20px;
+
 }
 
 .right {
@@ -53,8 +56,10 @@ a:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     padding-top: 20px;
+    padding-bottom: 20px;
+
 }
 
 .center {
@@ -63,6 +68,8 @@ a:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     padding-top: 20px;
+    padding-bottom: 20px;
+
 }

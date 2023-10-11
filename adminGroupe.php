@@ -1,15 +1,6 @@
 
 <?php
-// On prolonge la session
-session_start();
-// On teste si la variable de session existe et contient une valeur
-if(empty($_SESSION['pseudo'])) 
-{
-  // Si inexistante ou nulle, on redirige vers le formulaire de login
-  header('Location: ./signIn.php');
-  exit();
-};
-
+include('./sessionprolong.php');
 
 $userid = $_SESSION['id'];
 $groupeId = $_GET['id'] ;//$_GET['id'];
@@ -19,7 +10,7 @@ if ($mysqli->connect_errno) {
     echo ("Échec de la connexion : " . $mysqli->connect_error);
     exit();
 } else {
-        $querySearchGroup = "SELECT * "
+        $querySearchGroup = "SELECT *, DATE_FORMAT(date, '%d-%m-%Y') AS formatted_date "
         . "FROM groupes "
         . "WHERE "
         . "id = '" . $groupeId . "'";
@@ -98,44 +89,39 @@ if ($mysqli->connect_errno) {
 </head>
 
 <body>
-    <?php include("./htmlcss/navbar.php") ?> 
+    <?php include("./htmlcss/navbar.php") ?>
 
     <main>
-        <section class='center' id="groupInfo">
+    <section class='center' id="groupInfo">
             <h1><?php echo $resultGroup['name']?></h1>
-       <ul>
-        <?php
-         echo "<li> name :" . $resultGroup['name'] ."</li>";
-         echo "<li> description:" . $resultGroup['description'] ."</li>";
-         echo "<li> localisation:" . $resultGroup['localisation'] ."</li>";
-         ?>
-        </ul>
-        </section>
-        <section id="UserPhoto">
-        <?php
-        echo "<img src='./uploads/users/".$resultGroup['photo']."'/>"
-        ?>
-            <h1>Modifier Profil de <?php echo $resultGroup['name']?></h1>
-            <form action="./adminGroupe.php?id=<?php echo "$groupeId"?>" method="post" enctype="multipart/form-data">
-                <div>
-                    <input type="text" name="name" placeholder="nom du groupe" />
-                </div>
-                <div>
-                    <input type="number" name="localisation" maxlength="5" placeholder="localisation" />
-                </div>
-                <div>
-                    <input type="textarea" name="description" placeholder="modifier la description">
-                </div>
-                <div>
-                    <input type="file" name="img" placeholder="votre la photo de profil du groupe">
-                </div>
-                <input type="submit" value="VALIDER" />
+            <p>Groupe créé le <?php echo $resultGroup['formatted_date'] ?></p>
 
+            <form id='formGroupAdmin' action="./adminGroupe.php?id=<?php echo "$groupeId" ?>" method="post" enctype="multipart/form-data">
+        <div>
+            <label for="name">Nom</label>
+            <input type="text" id="name" name="name" value="<?php echo $resultGroup['name']; ?>">
+        </div>
+
+        <div>
+            <label for="localisation">Localisation</label>
+            <input type="number" id="localisation" name="localisation" value="<?php echo $resultGroup['localisation']; ?>">
+        </div>
+
+        <div>
+            <label for="description">Description</label>
+            <input type="textarea" id="description" name="description" value="<?php echo $resultGroup['description']; ?>">
+        </div>
+
+        <div>
+            <label for="img">Photo du groupe</label>
+            <img src='./uploads/users/<?php echo $resultGroup['photo']; ?>' style="width:20%">
+            <input type="file" id="img" name="img">
+        </div>
+
+        <input class="greyBtn" id="confirmModif" type="submit" value="Valider les modifications" />
                 <?php include("./localisation.php") ?> 
-            </form>
-</section>
-            
-         
+        </form>
+        </section>
 
 </body>
 

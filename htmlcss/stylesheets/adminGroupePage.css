@@ -1,0 +1,31 @@
+#groupInfo li img {
+    width: 20%;
+}
+
+#groupInfo p {
+    margin: 0;
+    padding: 0;
+    font-style: italic;
+    font-size: 0.7em;
+}
+
+#groupInfo h1 {
+    margin: 0;
+    padding: 0;
+}
+
+#modifyForm {
+    display: none;
+}
+
+#formGroupAdmin .readonly {
+    color: rgb(149, 149, 149);
+}
+
+#formGroupAdmin {
+    margin-top: 20px;
+}
+
+#confirmModif {
+    width: 320px;
+}
