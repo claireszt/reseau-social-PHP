@@ -102,9 +102,7 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
             <button class='greyBtn' name='commentSubmit' id='newmessage'>NOUVEAU MESSAGE</button>
             </form>");
             // getAllCommentsByGroup($mysqli, $groupId);
-           
-            
-        }else {
+           }else {
                 echo ("
                 <a href='./joinGroupe.php?id=" . $groupId . "'><button class='redBtn' id='joingroup'>Rejoindre le groupe</button></a>
                ");
