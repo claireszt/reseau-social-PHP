@@ -32,8 +32,11 @@ function setLikeListener($postid)
             if (this.readyState == 4 && this.status == 200) {
                 console.log('like envoyé')
             }
+            else {
+                console.log('erreur')
+            }
         };
-        xmlhttp.open('POST', 'sendLike.php?id=' + postid , true);
+        xmlhttp.open('GET', 'sendLike.php?id=' + postid , true);
         xmlhttp.send();
         
     })
