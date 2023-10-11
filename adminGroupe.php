@@ -45,7 +45,7 @@ if ($mysqli->connect_errno) {
     $modifyGroup = $querymodifyGroup->execute();
 
     move_uploaded_file($_FILES['img']['tmp_name'], 'uploads/users/' . basename($_FILES['img']['name']));
-    header("Location: ./adminGroupe.php/?id=$groupeId");
+    header("Location: ./adminGroupe.php?id=$groupeId");
     exit();
 };
 };
@@ -95,6 +95,8 @@ if ($mysqli->connect_errno) {
     <section class='center' id="groupInfo">
             <h1><?php echo $resultGroup['name']?></h1>
             <p>Groupe créé le <?php echo $resultGroup['formatted_date'] ?></p>
+            <a href="./groupPage.php?id=<?php echo $groupeId ?>">Revenir au groupe</a>
+
 
             <form id='formGroupAdmin' action="./adminGroupe.php?id=<?php echo "$groupeId" ?>" method="post" enctype="multipart/form-data">
         <div>
@@ -114,7 +116,7 @@ if ($mysqli->connect_errno) {
 
         <div>
             <label for="img">Photo du groupe</label>
-            <img src='./uploads/users/<?php echo $resultGroup['photo']; ?>' style="width:20%">
+            <img src='./uploads/groups/<?php echo $resultGroup['photo']; ?>' style="width:20%">
             <input type="file" id="img" name="img">
         </div>
 

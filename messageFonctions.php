@@ -84,30 +84,28 @@ function setComments($mysqli)
         $groupeid = $_GET['id'];
         $principale = '1'; // $principale = $_POST["principale"]; 
 
+        $queryInsertMessage = $mysqli->prepare("INSERT INTO Posts (content, userid, date, groupeid, principale) VALUES (?, ?, CURRENT_TIMESTAMP, ?, ?)");
+        $queryInsertMessage->bind_param("sisi", $content, $userid, $groupeid, $principale);
 
-        $queryInsertMessage = "INSERT INTO Posts (content, userid, date, groupeid, principale) "
-            . "VALUES ('"
-            . $content . "',"
-            . "'" . $userid . "',"
-            . "CURRENT_TIMESTAMP" . ", '"
-            . $groupeid . "',"
-            . "'" . $principale . "');";
-
-        $createmessage = $mysqli->query($queryInsertMessage);
-        if ($createmessage === TRUE) {
+        if ($queryInsertMessage->execute()) {
             echo "Message envoyé";
         } else {
-            echo "Erreur lors de l'insertion : " . $mysqli->error;
+            echo "Erreur lors de l'insertion : " . $queryInsertMessage->error;
         }
 
-        $querySearchUser = "SELECT * "
-            . "FROM Users "
-            . "WHERE "
-            . "pseudo LIKE '" . $pseudo . "'"
-        ;
+        $querySearchUser = $mysqli->prepare("SELECT * FROM Users WHERE pseudo LIKE ?");
+        $querySearchUser->bind_param("s", $pseudo);
 
-        $searchUser = $mysqli->query($querySearchUser);
-        $result = $searchUser->fetch_assoc();
+        if ($querySearchUser->execute()) {
+            $result = $querySearchUser->get_result();
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    // Traitement des données de l'utilisateur
+                }
+            }
+        } else {
+            echo "Erreur lors de la recherche de l'utilisateur : " . $querySearchUser->error;
+        }
     }
 }
 

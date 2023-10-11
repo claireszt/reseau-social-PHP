@@ -96,13 +96,13 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
     <section class="left" id="groupFeed">
             <?php 
         if(isUserMember($mysqli)==true) {
-            echo ("<form action='".getAllCommentsByGroup($mysqli, $groupId)."' method='POST'>
-            <textarea name='content' style='color:grey;' placeholder='Ecrivez quelque chose ...'></textarea>
-            <button class='greyBtn' id='newmessage' type='submit' value='envoyer' name='commentSubmit'>NOUVEAU MESSAGE</button>
+
+            echo ("<form action='".setComments($mysqli)."' method='POST' style='width:90%'>
+            <textarea name='content' style='color:grey;width:90%;' placeholder='Ecrivez quelque chose ...'></textarea>
+            <button class='redBtn' id='newmessage' type='submit' value='envoyer' name='commentSubmit'>Envoyer</button>
             </form>");
 
-            // getAllCommentsByGroup($mysqli, $groupId);
-            setComments($mysqli);
+            getAllCommentsByGroup($mysqli, $groupId);
 
         }
         else {
@@ -121,16 +121,17 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
             <article id="groupHeader">
                 <?php 
                     if ($_SESSION['id'] == $resultGroup['adminid']){
-                        echo "<a href='adminGroupe.php?id=" . $resultGroup['id'] . "'><button class='greyBtn' id='adminGroup'>modifié un groupe</button></a>" ;
+                        echo "<a href='adminGroupe.php?id=" . $resultGroup['id'] . "'><button class='greyBtn' id='adminGroup'>modifier le groupe</button></a>" ;
                     
-                     }
-
-                    if ($resultGroup['photo'] != 0) {
-                        echo "<img src='./uploads/users/" . $resultGroup['photo'] . "'/>"; 
-                    }?>
+                     }?>
                 
                 <div>
                     <div>
+                        <?php
+                        if ($resultGroup['photo'] != 0) {
+                            echo "<img src='./uploads/groups/" . $resultGroup['photo'] . "'/>"; 
+                        }
+                        ?>
                         <h3> <?php echo $resultGroup['name']?> </h3><br />
                         <p><?php echo "créé le " . $formattedDate; ?></p><br />
                         <span><?php echo $resultGroup['localisation']?></span>

@@ -1,0 +1,67 @@
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.welcome {
+    background-color: #fd676a;
+    width: 50vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+
+}
+
+.welcome h1 {
+    font-weight: 900;
+    font-size: 3em;
+    margin: 0;
+    padding: 0;
+}
+
+.welcome h3 {
+    margin: 0;
+    padding: 0;
+}
+
+.welcome p {
+    margin-top: 50px;
+}
+
+#welcomeBtns {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+#welcomeBtns button {
+    width: 300px;
+    background-color: white;
+    padding: 20px;
+    border: none;
+    border-radius: 10px;
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: 1.5em;
+}
+
+#welcomeBtns button:hover {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.signUp {
+    width: 50vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.signIn {
+    margin: auto;
+    text-align: center;
+}
