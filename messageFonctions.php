@@ -17,12 +17,12 @@ function setComments($mysqli) {
         $content= $_POST["content"];
         $userid = $_SESSION['id']; // $userid = $_POST["userid"];
         $date = "CURRENT_TIMESTAMP";
-        $groupeid = '5';
+        $groupeid = '12';
         $principale = '1'; // $principale = $_POST["principale"]; 
 
 
         $queryInsertMessage = "INSERT INTO Posts (content, userid, date, groupeid, principale) "
-                    . "VALUES ('" 
+                    . "VALUES ('"
                     . $content . "',"
                     . "'" . $userid . "',"
                     . "CURRENT_TIMESTAMP" . ", '"
@@ -31,12 +31,13 @@ function setComments($mysqli) {
 
         $createmessage = $mysqli->query($queryInsertMessage);
             if ($createmessage === TRUE) {
+                echo "Message envoyé";
             } else {
                 echo "Erreur lors de l'insertion : " . $mysqli->error;
             }
 
                $querySearchUser = "SELECT * "
-                    . "FROM users "
+                    . "FROM Users "
                     . "WHERE "
                     . "pseudo LIKE '" . $pseudo . "'"
                     ;
@@ -47,17 +48,37 @@ function setComments($mysqli) {
 }
 
 
-// Fonction qui permet d'afficher tous les pseudos, messages et groupe ID. 
+// Fonction qui permet d'afficher les messages instantanées.
 function getComments($mysqli) {
-    $selectComments = "SELECT content FROM Posts";
+    // Sélectionne tous les commentaires de tous les utilisateurs
+    $selectComments = "SELECT p.content, p.date, u.pseudo 
+                       FROM Posts p
+                       INNER JOIN Users u ON p.userid = u.id";
     $queryGetComments = $mysqli->query($selectComments);
-   // $row = $queryGetComments->fetch_assoc();
-    while ($row = $queryGetComments->fetch_assoc()) {
-        echo "<div><p>";
-            echo $_SESSION["pseudo"] . " a publié ";
-            echo $row["content"] . " dans le groupe: " . "<br>";
-         //   echo $row["groupeid"]."<br><br>";
-        echo "</p></div>";
+
+    $allComments = array();
+    foreach($queryGetComments as $comments){
+        array_push($allComments,$comments);
+    }
+    $allComments = array_reverse($allComments);
+        if ($queryGetComments) {
+            foreach($allComments as $comments) {
+            // Parcoure les résultats et les affiche 
+            echo "<section id='groupFeed'>
+                    <article class='message'>
+                        <div class='messageHeader'>
+                            <p>" . $comments['date'] . "</p> 
+                            <p>" . $comments['pseudo'] . "</p>
+                        </div>
+                        <br><p>" . $comments["content"] . "</p>
+                        <div class='messageFooter'>
+                            <p>♥ 13</p>
+                        </div>
+                    </article>
+                  </section>";  
+        }
+    } else {
+        echo "Erreur lors de la récupération des commentaires : " . $mysqli->error;
     }
 }
 
@@ -151,4 +172,42 @@ function getAllCommentsByGroup($mysqli, $groupeid) {
     }
 }
 
+function getAllCommentsByGroup($mysqli, $groupeid) {
+    $querygetAllMessagesGroup = 
+    "SELECT * FROM Posts
+    WHERE userid = " . $_SESSION['id'] . " AND groupeid = " . $groupeid .";";
+    $queryMessagesGroup = $mysqli->query($querygetAllMessagesGroup);
+
+    $allMessagesGroup = array();
+    foreach($queryMessagesGroup as $message){
+        array_push($allMessagesGroup,$message);
+    }
+    $allMessagesGroup = array_reverse($allMessagesGroup);
+
+    foreach($allMessagesGroup as $message){
+
+        $queryGroupName = 
+        "SELECT name FROM groupes
+        WHERE id = " . $message['groupeid'] . ";";
+        $getGroupName = $mysqli->query($queryGroupName);
+        $groupe = $getGroupName->fetch_array();
+
+        $queryUserPseudo = 
+        "SELECT pseudo FROM users
+        WHERE id = " . $message['userid'] . ";";
+        $getUserPseudo = $mysqli->query($queryUserPseudo);
+        $user = $getUserPseudo->fetch_array();
+
+        echo "<article class='message'>
+                    <div class='messageHeader'>
+                        <p>" . $message['date'] . "</p>
+                        <p>par " . $user['pseudo'] . "</p>
+                    </div>
+                    <p>" . $message['content'] . "</p>
+                    <div class='messageFooter'>
+                        <a href=''>♥ 256</a>
+                    </div>
+                </article>";
+    }
+}
     ?>
