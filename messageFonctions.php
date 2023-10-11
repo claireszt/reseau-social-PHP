@@ -33,7 +33,7 @@ function setLikeListener($postid)
                 console.log('like envoyé')
             }
         };
-        xmlhttp.open('POST', 'sendLike.php?id=' + postid , true);
+        xmlhttp.open('GET', 'sendLike.php?id=' + postid , true);
         xmlhttp.send();
         
     })
@@ -62,7 +62,7 @@ function displayMessage($message, $mysqli)
     </div>
     <p>" . $message['content'] . "</p>
     <div class='messageFooter'>
-        <a href='' id='like'>♥ ". $message['likes'] . "</a>
+        <a href='' id='like'>♥ " . $message['likes'] . "</a>
     </div>
 </article>";
     setLikeListener($message['id']);
@@ -192,6 +192,7 @@ function getAllCommentsByGroup($mysqli, $groupeid)
     $querygetAllMessagesGroup =
         "SELECT *, DATE_FORMAT(date, '%d-%m-%Y') AS formatted_date FROM Posts
     WHERE groupeid = " . $groupeid . ";";
+
     $queryMessagesGroup = $mysqli->query($querygetAllMessagesGroup);
 
     $allMessagesGroup = array();
@@ -201,8 +202,8 @@ function getAllCommentsByGroup($mysqli, $groupeid)
     $allMessagesGroup = array_reverse($allMessagesGroup);
 
     foreach ($allMessagesGroup as $message) {
-        $message['likes'] = getLikes($message['id'],$mysqli);
-        displayMessage($message,$mysqli);
+        $message['likes'] = getLikes($message['id'], $mysqli);
+        displayMessage($message, $mysqli);
     }
 
     if (empty($allMessagesGroup)) {
@@ -210,42 +211,52 @@ function getAllCommentsByGroup($mysqli, $groupeid)
     }
 }
 
-//function getAllCommentsByGroup($mysqli, $groupeid) {
-//   $querygetAllMessagesGroup = 
-// "SELECT * FROM Posts
-// WHERE groupeid = " . $groupeid .";";
-// $queryMessagesGroup = $mysqli->query($querygetAllMessagesGroup);
+function getAllCommentsFeed($mysqli)
+{
+    // Récupérez la liste des groupIDs
+    $queryGetListGroupe = "SELECT groupid 
+FROM groupemembers
+WHERE userid = " . $_SESSION['id'] . ";";
 
-// $allMessagesGroup = array();
-// foreach($queryMessagesGroup as $message){
-//   array_push($allMessagesGroup,$message);
-// }
-// $allMessagesGroup = array_reverse($allMessagesGroup);
+    $result = $mysqli->query($queryGetListGroupe);
 
-//  foreach($allMessagesGroup as $message){
+    if ($result) {
+        $listGroupeIDs = array();
+        while ($row = $result->fetch_assoc()) {
+            $listGroupeIDs[] = $row['groupid'];
+        }
 
-//    $queryGroupName = 
-//  "SELECT name FROM groupes
-//  WHERE id = " . $message['groupeid'] . ";";
-//  $getGroupName = $mysqli->query($queryGroupName);
-//  $groupe = $getGroupName->fetch_array();
+        // Vérifiez si la liste des groupIDs n'est pas vide
+        if (!empty($listGroupeIDs)) {
+            // Construisez la liste des groupIDs sous forme de chaîne (par exemple, "1, 2, 3")
+            $groupIDList = implode(',', $listGroupeIDs);
 
-// $queryUserPseudo = 
-// "SELECT pseudo FROM users
-// WHERE id = " . $message['userid'] . ";";
-// $getUserPseudo = $mysqli->query($queryUserPseudo);
-// $user = $getUserPseudo->fetch_array();
+            // Sélectionnez les commentaires correspondant aux groupIDs
+            $queryGetMessages = "SELECT *, DATE_FORMAT(date, '%d-%m-%Y') AS formatted_date 
+      FROM Posts
+      WHERE groupeid IN (" . $groupIDList . ");";
 
-// echo "<article class='message'>
-//           <div class='messageHeader'>
-//             <p>" . $message['date'] . "</p>
-//           <p>par " . $user['pseudo'] . "</p>
-//     </div>
-//   <p>" . $message['content'] . "</p>
-// <div class='messageFooter'>
-//    <a href=''>♥ 256</a>
-// </div>
-// </article>";
-// }
-//}
-?>
+$messagesResult = $mysqli->query($queryGetMessages);
+
+$allMessagesFeed = array();
+
+if ($messagesResult) {
+    // Utilisez fetch_all si disponible
+    // $allMessagesFeed = $messagesResult->fetch_all(MYSQLI_ASSOC);
+
+    // Sinon, utilisez une boucle while pour extraire les lignes
+    while ($message = $messagesResult->fetch_assoc()) {
+        $allMessagesFeed[] = $message;
+    }
+
+    // Inversez le tableau
+    $allMessagesFeed = array_reverse($allMessagesFeed);
+
+    foreach ($allMessagesFeed as $message) {
+        $message['likes'] = getLikes($message['id'], $mysqli);
+        displayMessage($message, $mysqli);
+    }
+}
+        }}
+
+}
