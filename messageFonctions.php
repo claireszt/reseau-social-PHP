@@ -16,30 +16,27 @@ function getLikes($postid, $mysqli)
     FROM likes
     WHERE postid = " . $postid . ";";
     $resultLikes = $mysqli->query($queryLikes);
-    $resultLikes = $resultLikes->fetch_array();
-    if(!$resultLikes){
-        echo 'nope';
-        return 0;
-    }
-    else {
-        echo 'oui';
-        return $resultLikes;
-    }
+    return $resultLikes->num_rows;
+
 }
 function setLikeListener($postid)
 {
     echo "<script>
+    var xmlhttp = new XMLHttpRequest()
+    console.log(xmlhttp)
     likeIt = document.getElementById('like')
-    postid = likeIt.parentElement.parentElement.attributes.postid
+    postid = likeIt.parentElement.parentElement.attributes.postid.value
     console.log(postid)
     likeIt.addEventListener('click', () => {
-        var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById('txtHint').innerHTML = this.responseText;
+                console.log('like envoyé')
+            }
+            else {
+                console.log('nope')
             }
         };
-        xmlhttp.open('POST', 'sendLike.php?id='+postid , true);
+        xmlhttp.open('GET', 'sendLike.php?id=' + postid , true);
         xmlhttp.send();
         
     })
