@@ -17,7 +17,7 @@ function setComments($mysqli) {
         $content= $_POST["content"];
         $userid = $_SESSION['id']; // $userid = $_POST["userid"];
         $date = "CURRENT_TIMESTAMP";
-        $groupeid = '12';
+        $groupeid = $_GET['id'];
         $principale = '1'; // $principale = $_POST["principale"]; 
 
 
@@ -129,7 +129,7 @@ function getAllCommentsByUser($mysqli) {
 function getAllCommentsByGroup($mysqli, $groupeid) {
     $querygetAllMessagesGroup = 
     "SELECT *, DATE_FORMAT(date, '%d-%m-%Y') AS formatted_date FROM Posts
-    WHERE userid = " . $_SESSION['id'] . " AND groupeid = " . $groupeid .";";
+    WHERE groupeid = " . $groupeid .";";
     $queryMessagesGroup = $mysqli->query($querygetAllMessagesGroup);
 
     $allMessagesGroup = array();
@@ -172,42 +172,42 @@ function getAllCommentsByGroup($mysqli, $groupeid) {
     }
 }
 
-function getAllCommentsByGroup($mysqli, $groupeid) {
-    $querygetAllMessagesGroup = 
-    "SELECT * FROM Posts
-    WHERE userid = " . $_SESSION['id'] . " AND groupeid = " . $groupeid .";";
-    $queryMessagesGroup = $mysqli->query($querygetAllMessagesGroup);
+//function getAllCommentsByGroup($mysqli, $groupeid) {
+ //   $querygetAllMessagesGroup = 
+   // "SELECT * FROM Posts
+   // WHERE userid = " . $_SESSION['id'] . " AND groupeid = " . $groupeid .";";
+   // $queryMessagesGroup = $mysqli->query($querygetAllMessagesGroup);
 
-    $allMessagesGroup = array();
-    foreach($queryMessagesGroup as $message){
-        array_push($allMessagesGroup,$message);
-    }
-    $allMessagesGroup = array_reverse($allMessagesGroup);
+   // $allMessagesGroup = array();
+   // foreach($queryMessagesGroup as $message){
+     //   array_push($allMessagesGroup,$message);
+   // }
+   // $allMessagesGroup = array_reverse($allMessagesGroup);
 
-    foreach($allMessagesGroup as $message){
+  //  foreach($allMessagesGroup as $message){
 
-        $queryGroupName = 
-        "SELECT name FROM groupes
-        WHERE id = " . $message['groupeid'] . ";";
-        $getGroupName = $mysqli->query($queryGroupName);
-        $groupe = $getGroupName->fetch_array();
+    //    $queryGroupName = 
+      //  "SELECT name FROM groupes
+      //  WHERE id = " . $message['groupeid'] . ";";
+      //  $getGroupName = $mysqli->query($queryGroupName);
+      //  $groupe = $getGroupName->fetch_array();
 
-        $queryUserPseudo = 
-        "SELECT pseudo FROM users
-        WHERE id = " . $message['userid'] . ";";
-        $getUserPseudo = $mysqli->query($queryUserPseudo);
-        $user = $getUserPseudo->fetch_array();
+       // $queryUserPseudo = 
+       // "SELECT pseudo FROM users
+       // WHERE id = " . $message['userid'] . ";";
+       // $getUserPseudo = $mysqli->query($queryUserPseudo);
+       // $user = $getUserPseudo->fetch_array();
 
-        echo "<article class='message'>
-                    <div class='messageHeader'>
-                        <p>" . $message['date'] . "</p>
-                        <p>par " . $user['pseudo'] . "</p>
-                    </div>
-                    <p>" . $message['content'] . "</p>
-                    <div class='messageFooter'>
-                        <a href=''>♥ 256</a>
-                    </div>
-                </article>";
-    }
-}
+       // echo "<article class='message'>
+         //           <div class='messageHeader'>
+           //             <p>" . $message['date'] . "</p>
+             //           <p>par " . $user['pseudo'] . "</p>
+               //     </div>
+                 //   <p>" . $message['content'] . "</p>
+                   // <div class='messageFooter'>
+                    //    <a href=''>♥ 256</a>
+                   // </div>
+               // </article>";
+   // }
+//}
     ?>
