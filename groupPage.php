@@ -121,7 +121,7 @@ $mysqli = new mysqli("localhost", "root", "root", "voisinous");
             <article id="groupHeader">
                 <?php 
                     if ($_SESSION['id'] == $resultGroup['adminid']){
-                        echo "<a href='adminGroupe.php?id=" . $resultGroup['id'] . "'><button class='greyBtn' id='adminGroup'>modifié un groupe</button></a>" ;
+                        echo "<a href='adminGroupe.php?id=" . $resultGroup['id'] . "'><button class='greyBtn' id='adminGroup'>modifier le groupe</button></a>" ;
                     
                      }
 
