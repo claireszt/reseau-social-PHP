@@ -23,17 +23,17 @@ function setLikeListener($postid)
 {
     echo "<script>
     var xmlhttp = new XMLHttpRequest()
-    console.log(xmlhttp)
-    likeIt = document.getElementById('like')
-    postid = likeIt.parentElement.parentElement.attributes.postid.value
-    console.log(postid)
+    likeIt = document.getElementById('$postid')
     likeIt.addEventListener('click', () => {
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 console.log('like envoyé')
             }
+            else {
+                console.log('erreur')
+            }
         };
-        xmlhttp.open('GET', 'sendLike.php?id=' + postid , true);
+        xmlhttp.open('GET', 'sendLike.php?id=' + $postid , true);
         xmlhttp.send();
         
     })
@@ -62,7 +62,7 @@ function displayMessage($message, $mysqli)
     </div>
     <p>" . $message['content'] . "</p>
     <div class='messageFooter'>
-        <a href='' id='like'>♥ " . $message['likes'] . "</a>
+        <a href='' id='" . $message['id'] . "'>♥ ". $message['likes'] . "</a>
     </div>
 </article>";
     setLikeListener($message['id']);
