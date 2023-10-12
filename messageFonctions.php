@@ -63,10 +63,10 @@ function displayMessage($message, $mysqli)
     </div>
     <p>" . $message['content'] . "</p>
     <div class='messageFooter'>
-        <a href='' id='" . $message['id'] . "'>♥ ". $message['likes'] . "</a>
+        <a href='' id='" . $message['id'] . "'>♥ " . $message['likes'] . "</a>
     </div>
 </article>";
-    if(!$message['fromUser']){
+    if (!$message['fromUser']) {
         setLikeListener($message['id']);
     }
 }
@@ -205,14 +205,15 @@ function getAllCommentsByGroup($mysqli, $groupeid)
     $allMessagesGroup = array_reverse($allMessagesGroup);
 
     foreach ($allMessagesGroup as $message) {
-        $likes = getLikes($message['id'],$mysqli);
+        $likes = getLikes($message['id'], $mysqli);
         $message['likes'] = $likes->num_rows;
-        foreach($likes as $like) {
-            if($like['userid']==$_SESSION['id']){
+        $message['fromUser'] = false;
+        foreach ($likes as $like) {
+            if ($like['userid'] == $_SESSION['id']) {
                 $message['fromUser'] = true;
             }
         }
-        displayMessage($message,$mysqli);
+        displayMessage($message, $mysqli);
     }
 
     if (empty($allMessagesGroup)) {
@@ -245,27 +246,35 @@ WHERE userid = " . $_SESSION['id'] . ";";
       FROM Posts
       WHERE groupeid IN (" . $groupIDList . ");";
 
-$messagesResult = $mysqli->query($queryGetMessages);
+            $messagesResult = $mysqli->query($queryGetMessages);
 
-$allMessagesFeed = array();
+            $allMessagesFeed = array();
 
-if ($messagesResult) {
-    // Utilisez fetch_all si disponible
-    // $allMessagesFeed = $messagesResult->fetch_all(MYSQLI_ASSOC);
+            if ($messagesResult) {
+                // Utilisez fetch_all si disponible
+                // $allMessagesFeed = $messagesResult->fetch_all(MYSQLI_ASSOC);
 
-    // Sinon, utilisez une boucle while pour extraire les lignes
-    while ($message = $messagesResult->fetch_assoc()) {
-        $allMessagesFeed[] = $message;
+                // Sinon, utilisez une boucle while pour extraire les lignes
+                while ($message = $messagesResult->fetch_assoc()) {
+                    $allMessagesFeed[] = $message;
+                }
+
+                // Inversez le tableau
+                $allMessagesFeed = array_reverse($allMessagesFeed);
+
+                foreach ($allMessagesFeed as $message) {
+                    $likes = getLikes($message['id'], $mysqli);
+                    $message['likes'] = $likes->num_rows;
+                    $message['fromUser'] = false;
+                    foreach($likes as $like) {
+                        if($like['userid']==$_SESSION['id']){
+                            $message['fromUser'] = true;
+                        }
+                    }
+                    displayMessage($message, $mysqli);
+                }
+            }
+        }
     }
-
-    // Inversez le tableau
-    $allMessagesFeed = array_reverse($allMessagesFeed);
-
-    foreach ($allMessagesFeed as $message) {
-        $message['likes'] = getLikes($message['id'], $mysqli);
-        displayMessage($message, $mysqli);
-    }
-}
-        }}
 
 }
